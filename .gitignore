@@ -1,0 +1,12 @@
+# İşletim sistemi dosyaları
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editör ayarları
+.vscode/
+.idea/
+
+# Bağımlılıklar ve derleme çıktıları
+node_modules/
+dist/
