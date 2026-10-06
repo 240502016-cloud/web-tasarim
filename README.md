@@ -22,3 +22,9 @@ hafta-02/
 ## Çalıştırma
 
 Sayfaları görüntülemek için ilgili klasördeki `index.html` dosyasını bir tarayıcıda açmanız yeterlidir.
+
+## Katkıda Bulunanlar
+
+- 240502016-cloud
+- Docmaster64
+
