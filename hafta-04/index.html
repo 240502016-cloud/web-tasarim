@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kütüphane Doluluk Takibi - Proje Eşleştirme Platformu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="ust-menu">
+        <div class="kapsayici ust-menu-ic">
+            <a href="#" class="logo">Proje<span>Eşleştir</span></a>
+            <nav>
+                <a href="#" class="aktif">Projeler</a>
+                <a href="#">Mentörler</a>
+                <a href="#" class="buton buton-kucuk">Giriş Yap</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="kapsayici">
+        <nav class="konum" aria-label="Bulunduğunuz yer">
+            <a href="#">Projeler</a>
+            <span>/</span>
+            <span>Kütüphane Doluluk Takibi</span>
+        </nav>
+
+        <div class="detay-duzeni">
+            <article class="detay-icerik">
+                <span class="durum durum-acik">Açık</span>
+                <h1>Kütüphane Doluluk Takibi</h1>
+                <p class="ozet">Kütüphane salonlarının anlık doluluk oranını gösteren, öğrencilerin boş masa bulmasını kolaylaştıran web sitesi.</p>
+
+                <section class="bolum">
+                    <h2>Proje Hakkında</h2>
+                    <p>Sınav dönemlerinde kütüphane salonları çok kalabalık oluyor ve öğrenciler boş yer bulmak için salon salon geziyor. Bu projede her salonun doluluk oranı, görevlilerin girdiği sayıma göre bir web sayfasında gösterilecek.</p>
+                    <p>Proje sonunda salonların doluluk oranını renklerle (yeşil, sarı, kırmızı) gösteren duyarlı bir arayüz ve görevlilerin sayım girebildiği basit bir panel hazırlanacak.</p>
+                </section>
+
+                <section class="bolum">
+                    <h2>Gerekli Beceriler</h2>
+                    <div class="etiketler">
+                        <span>HTML / CSS</span>
+                        <span>JavaScript</span>
+                        <span>Duyarlı Tasarım</span>
+                    </div>
+                </section>
+
+                <section class="bolum">
+                    <h2>Proje Bilgileri</h2>
+                    <dl class="bilgi-listesi">
+                        <dt>Tahmini süre</dt>
+                        <dd>8 hafta</dd>
+                        <dt>Haftalık çalışma</dt>
+                        <dd>4–6 saat</dd>
+                        <dt>Oluşturulma</dt>
+                        <dd>3 Kasım 2026</dd>
+                    </dl>
+                </section>
+
+                <section class="bolum">
+                    <h2>Takım</h2>
+                    <ul class="kisi-listesi">
+                        <li>
+                            <span class="avatar">PL</span>
+                            <div>
+                                <strong>Proje Lideri</strong>
+                                <small>Bilgisayar Mühendisliği, 3. sınıf</small>
+                            </div>
+                        </li>
+                        <li class="bos-yer">
+                            <span class="avatar">+</span>
+                            <div>
+                                <strong>Boş yer</strong>
+                                <small>2 kişi daha aranıyor</small>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="bolum">
+                    <h2>Mentör</h2>
+                    <p class="soluk">Bu projenin henüz mentörü yok. Proje lideri mentörlük talebi gönderebilir.</p>
+                </section>
+            </article>
+
+            <aside class="basvuru-kutusu">
+                <h2>Takım Doluluğu</h2>
+                <progress value="1" max="3">1 / 3</progress>
+                <p class="doluluk-yazi"><strong>1 / 3</strong> kişi &middot; 2 yer boş</p>
+
+                <form class="basvuru-formu" action="#" method="post">
+                    <h2>Projeye Başvur</h2>
+
+                    <label for="rol">Projede hangi işi üstlenebilirsin?</label>
+                    <select id="rol" name="rol">
+                        <option value="">Seçiniz</option>
+                        <option>Arayüz tasarımı (HTML / CSS)</option>
+                        <option>JavaScript geliştirme</option>
+                        <option>Test ve dokümantasyon</option>
+                    </select>
+
+                    <fieldset>
+                        <legend>Haftada ne kadar zaman ayırabilirsin?</legend>
+                        <label><input type="radio" name="sure" value="2-4"> 2–4 saat</label>
+                        <label><input type="radio" name="sure" value="4-6"> 4–6 saat</label>
+                        <label><input type="radio" name="sure" value="6+"> 6 saatten fazla</label>
+                    </fieldset>
+
+                    <label for="mesaj">Neden bu projede yer almak istiyorsun?</label>
+                    <textarea id="mesaj" name="mesaj" rows="5" placeholder="Kendini ve bu projeye katkını kısaca anlat..."></textarea>
+
+                    <label for="portfolyo">Portfolyo / GitHub bağlantısı <span class="soluk">(isteğe bağlı)</span></label>
+                    <input type="url" id="portfolyo" name="portfolyo" placeholder="https://github.com/kullanici-adi">
+
+                    <label class="onay">
+                        <input type="checkbox" name="onay">
+                        Profil bilgilerimin proje lideriyle paylaşılmasını kabul ediyorum.
+                    </label>
+
+                    <button type="submit" class="buton buton-tam">Başvuruyu Gönder</button>
+                </form>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <p>Öğrenci, Mentör ve Proje Eşleştirme Platformu &middot; Web Tasarım Dersi Hafta 04</p>
+    </footer>
+</body>
+</html>
