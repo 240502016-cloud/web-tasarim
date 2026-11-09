@@ -10,7 +10,7 @@ Dönem projesi: **Öğrenci, Mentör ve Proje Eşleştirme Platformu**
 | 2 | CSS ile biçimlendirme | Ana sayfa: üst menü, giriş bölümü, "Nasıl Çalışır?", proje ve mentör kartları (Flexbox) | ✅ |
 | 3 | CSS Grid | Proje listeleme sayfası: filtre paneli, kart ızgarası, sayfalama | ✅ |
 | 4 | HTML formları | Proje detay sayfası ve başvuru formu | ✅ |
-| 5 | Form doğrulama | Kayıt ve giriş sayfaları: rol seçimi, `.edu.tr` e-posta kontrolü, HTML5 doğrulama | ⬜ |
+| 5 | Form doğrulama | Kayıt ve giriş sayfaları: rol seçimi, `.edu.tr` e-posta kontrolü, HTML5 doğrulama | ✅ |
 | 6 | JavaScript ve DOM | Proje listesini JavaScript ile oluşturma; arama, beceri filtresi ve "boş yer var" filtresi | ⬜ |
 | 7 | Sayfaları birleştirme | Mentör listesi ve mentör profil sayfası; tüm sayfaları ortak stil dosyasıyla tek prototipte birleştirme | ⬜ |
 | 8 | Ara sınav haftası | Prototipin gözden geçirilmesi; duyarlı tasarım ve erişilebilirlik düzeltmeleri | ⬜ |

@@ -1,0 +1,270 @@
+:root {
+    --ana-renk: #4f46e5;
+    --ana-renk-koyu: #4338ca;
+    --ana-renk-acik: #eef2ff;
+    --yazi: #1f2937;
+    --yazi-soluk: #4b5563;
+    --kenarlik: #d1d5db;
+    --arka-plan: #f5f7fb;
+    --hata: #dc2626;
+    --basari: #16a34a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: var(--yazi);
+    background-color: var(--arka-plan);
+}
+
+a {
+    color: var(--ana-renk);
+}
+
+.soluk {
+    color: var(--yazi-soluk);
+}
+
+.gizli {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.buton {
+    display: inline-block;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    background-color: var(--ana-renk);
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.buton:hover {
+    background-color: var(--ana-renk-koyu);
+}
+
+.buton-tam {
+    width: 100%;
+    margin-top: 8px;
+}
+
+/* Sayfa: solda tanıtım, sağda form */
+.hesap-sayfasi {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+
+.tanitim {
+    padding: 48px;
+    color: #fff;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+}
+
+.tanitim .logo {
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.tanitim .logo span {
+    color: #c7d2fe;
+}
+
+.tanitim h1 {
+    margin: 80px 0 24px;
+    font-size: 34px;
+    line-height: 1.25;
+}
+
+.tanitim ul {
+    padding: 0;
+    list-style: none;
+}
+
+.tanitim li {
+    margin-bottom: 12px;
+    padding-left: 28px;
+    position: relative;
+    font-size: 17px;
+}
+
+.tanitim li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.form-alani {
+    width: 100%;
+    max-width: 460px;
+    margin: auto;
+    padding: 48px 24px;
+}
+
+.form-alani h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.form-alani > .soluk {
+    margin: 4px 0 20px;
+}
+
+/* Rol seçici: iki parçalı düğme */
+.rol-secici {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 4px;
+    border-radius: 8px;
+    background-color: #e5e7eb;
+}
+
+.rol-secici label {
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    color: var(--yazi-soluk);
+    cursor: pointer;
+}
+
+#rol-ogrenci:checked ~ .rol-secici label[for="rol-ogrenci"],
+#rol-mentor:checked ~ .rol-secici label[for="rol-mentor"] {
+    color: var(--ana-renk);
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+#rol-ogrenci:focus-visible ~ .rol-secici label[for="rol-ogrenci"],
+#rol-mentor:focus-visible ~ .rol-secici label[for="rol-mentor"] {
+    outline: 2px solid var(--ana-renk);
+}
+
+/* Seçili role göre ilgili form görünür */
+.ogrenci-formu,
+.mentor-formu {
+    display: none;
+}
+
+#rol-ogrenci:checked ~ .ogrenci-formu,
+#rol-mentor:checked ~ .mentor-formu {
+    display: block;
+}
+
+/* Form elemanları */
+.hesap-formu label {
+    display: block;
+    margin: 14px 0 6px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.hesap-formu label .soluk {
+    font-weight: normal;
+}
+
+.hesap-formu input:not([type="checkbox"]),
+.hesap-formu select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--kenarlik);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 15px;
+    background-color: #fff;
+}
+
+.hesap-formu input:focus,
+.hesap-formu select:focus {
+    outline: 2px solid var(--ana-renk);
+    outline-offset: 1px;
+}
+
+/* Doğrulama: kullanıcı alanla etkileşime girdikten sonra renk göster */
+.hesap-formu input:user-invalid,
+.hesap-formu select:user-invalid {
+    border-color: var(--hata);
+    background-color: #fef2f2;
+}
+
+.hesap-formu input:not([type="checkbox"]):user-valid {
+    border-color: var(--basari);
+}
+
+.ipucu {
+    display: block;
+    margin-top: 4px;
+    color: var(--yazi-soluk);
+    font-size: 13px;
+}
+
+input:user-invalid + .ipucu {
+    color: var(--hata);
+}
+
+.iki-sutun {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.hesap-formu .onay {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    margin: 16px 0;
+    font-weight: normal;
+    color: var(--yazi-soluk);
+}
+
+.onay input {
+    margin-top: 5px;
+}
+
+.satir {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.satir .onay {
+    margin: 12px 0;
+}
+
+.bilgi-kutusu {
+    padding: 10px 12px;
+    border-left: 4px solid var(--ana-renk);
+    background-color: var(--ana-renk-acik);
+    font-size: 14px;
+}
+
+@media (max-width: 800px) {
+    .hesap-sayfasi {
+        grid-template-columns: 1fr;
+    }
+
+    .tanitim {
+        padding: 24px;
+    }
+
+    .tanitim h1 {
+        margin: 24px 0 12px;
+        font-size: 26px;
+    }
+
+    .tanitim ul {
+        display: none;
+    }
+}
