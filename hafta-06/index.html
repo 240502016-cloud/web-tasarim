@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeler - Proje Eşleştirme Platformu</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header class="ust-menu">
+        <div class="kapsayici ust-menu-ic">
+            <a href="#" class="logo">Proje<span>Eşleştir</span></a>
+            <nav>
+                <a href="#" class="aktif">Projeler</a>
+                <a href="#">Mentörler</a>
+                <a href="#" class="buton buton-kucuk">Giriş Yap</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="kapsayici">
+        <div class="sayfa-baslik">
+            <h1>Projeler</h1>
+            <p>Becerilerine uygun bir projeye katıl ya da kendi projeni oluştur.</p>
+        </div>
+
+        <div class="liste-duzeni">
+            <aside class="filtre-paneli">
+                <h2>Filtrele</h2>
+
+                <label class="filtre-etiket" for="arama">Ara</label>
+                <input type="search" id="arama" placeholder="Proje adı veya açıklama...">
+
+                <fieldset id="beceri-filtresi">
+                    <legend>Beceriler</legend>
+                    <!-- Seçenekler app.js tarafından proje verisinden üretilir -->
+                </fieldset>
+
+                <fieldset>
+                    <legend>Durum</legend>
+                    <label><input type="radio" name="durum" value="tumu" checked> Tümü</label>
+                    <label><input type="radio" name="durum" value="acik"> Açık</label>
+                    <label><input type="radio" name="durum" value="devam"> Devam ediyor</label>
+                </fieldset>
+
+                <label class="tek-secim"><input type="checkbox" id="bos-yer"> Sadece boş yeri olanlar</label>
+
+                <button type="button" id="temizle" class="buton buton-cizgili buton-tam">Filtreleri Temizle</button>
+            </aside>
+
+            <section class="liste-icerik">
+                <div class="liste-ust">
+                    <span id="sonuc-sayisi" aria-live="polite"></span>
+                    <select id="siralama" aria-label="Sıralama">
+                        <option value="yeni">En yeni</option>
+                        <option value="bos-yer">Boş yeri en çok olan</option>
+                        <option value="ad">Ada göre (A–Z)</option>
+                    </select>
+                </div>
+
+                <div id="proje-izgara" class="proje-izgara"></div>
+
+                <p id="bos-sonuc" class="bos-sonuc" hidden>
+                    Aradığın kriterlere uygun proje bulunamadı. Filtreleri değiştirmeyi dene.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Her proje kartı bu şablondan kopyalanır -->
+    <template id="kart-sablonu">
+        <article class="kart">
+            <span class="durum"></span>
+            <h3 class="kart-baslik"></h3>
+            <p class="kart-aciklama"></p>
+            <div class="etiketler"></div>
+            <div class="kart-alt">
+                <span class="kart-takim"></span>
+                <a href="#" class="buton buton-kucuk">İncele</a>
+            </div>
+        </article>
+    </template>
+
+    <footer>
+        <p>Öğrenci, Mentör ve Proje Eşleştirme Platformu &middot; Web Tasarım Dersi Hafta 06</p>
+    </footer>
+</body>
+</html>
