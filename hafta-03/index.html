@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeler - Proje Eşleştirme Platformu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="ust-menu">
+        <div class="kapsayici ust-menu-ic">
+            <a href="#" class="logo">Proje<span>Eşleştir</span></a>
+            <nav>
+                <a href="#" class="aktif">Projeler</a>
+                <a href="#">Mentörler</a>
+                <a href="#" class="buton buton-kucuk">Giriş Yap</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="kapsayici">
+        <div class="sayfa-baslik">
+            <h1>Projeler</h1>
+            <p>Becerilerine uygun bir projeye katıl ya da kendi projeni oluştur.</p>
+        </div>
+
+        <div class="liste-duzeni">
+            <aside class="filtre-paneli">
+                <h2>Filtrele</h2>
+
+                <label class="filtre-etiket" for="arama">Ara</label>
+                <input type="search" id="arama" placeholder="Proje adı...">
+
+                <fieldset>
+                    <legend>Beceriler</legend>
+                    <label><input type="checkbox"> HTML / CSS</label>
+                    <label><input type="checkbox"> JavaScript</label>
+                    <label><input type="checkbox"> React</label>
+                    <label><input type="checkbox"> Python</label>
+                    <label><input type="checkbox"> Flutter</label>
+                    <label><input type="checkbox"> Yapay Zeka</label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Durum</legend>
+                    <label><input type="radio" name="durum" checked> Tümü</label>
+                    <label><input type="radio" name="durum"> Açık</label>
+                    <label><input type="radio" name="durum"> Devam ediyor</label>
+                </fieldset>
+
+                <label class="tek-secim"><input type="checkbox"> Sadece boş yeri olanlar</label>
+
+                <button type="button" class="buton buton-tam">Filtreyi Uygula</button>
+            </aside>
+
+            <section class="liste-icerik">
+                <div class="liste-ust">
+                    <span>8 proje bulundu</span>
+                    <select aria-label="Sıralama">
+                        <option>En yeni</option>
+                        <option>Boş yeri en çok olan</option>
+                    </select>
+                </div>
+
+                <div class="proje-izgara">
+                    <article class="kart">
+                        <span class="durum durum-acik">Açık</span>
+                        <h3>Kampüs Etkinlik Uygulaması</h3>
+                        <p>Kulüp ve etkinlik duyurularını tek yerde toplayan mobil uygulama.</p>
+                        <div class="etiketler"><span>Flutter</span><span>Firebase</span></div>
+                        <div class="kart-alt"><span>Takım: 2 / 4</span><a href="#" class="buton buton-kucuk">İncele</a></div>
+                    </article>
+                    <article class="kart">
+                        <span class="durum durum-acik">Açık</span>
+                        <h3>Kütüphane Doluluk Takibi</h3>
+                        <p>Kütüphane salonlarının anlık doluluk oranını gösteren web sitesi.</p>
+                        <div class="etiketler"><span>HTML / CSS</span><span>JavaScript</span></div>
+                        <div class="kart-alt"><span>Takım: 1 / 3</span><a href="#" class="buton buton-kucuk">İncele</a></div>
+                    </article>
+                    <article class="kart">
+                        <span class="durum durum-acik">Açık</span>
+                        <h3>Ders Notu Öneri Sistemi</h3>
+                        <p>Öğrencilere derslerine göre kaynak ve not öneren sistem.</p>
+                        <div class="etiketler"><span>Python</span><span>Yapay Zeka</span></div>
+                        <div class="kart-alt"><span>Takım: 3 / 4</span><a href="#" class="buton buton-kucuk">İncele</a></div>
+                    </article>
+                    <article class="kart">
+                        <span class="durum durum-devam">Devam ediyor</span>
+                        <h3>Yemekhane Menü Uygulaması</h3>
+                        <p>Günlük menüyü ve kalori bilgisini gösteren, oylama yapılabilen uygulama.</p>
+                        <div class="etiketler"><span>React</span><span>JavaScript</span></div>
+                        <div class="kart-alt"><span>Takım: 4 / 4</span><a href="#" class="buton buton-kucuk">İncele</a></div>
+                    </article>
+                    <article class="kart">
+                        <span class="durum durum-acik">Açık</span>
+                        <h3>Staj İlanları Panosu</h3>
+                        <p>Bölümlere göre staj ilanlarını listeleyen ve hatırlatma gönderen site.</p>
+                        <div class="etiketler"><span>React</span><span>HTML / CSS</span></div>
+                        <div class="kart-alt"><span>Takım: 1 / 4</span><a href="#" class="buton buton-kucuk">İncele</a></div>
+                    </article>
+                    <article class="kart">
+                        <span class="durum durum-acik">Açık</span>
+                        <h3>Laboratuvar Randevu Sistemi</h3>
+                        <p>Bilgisayar laboratuvarları için saatlik randevu alma sistemi.</p>
+                        <div class="etiketler"><span>JavaScript</span><span>Python</span></div>
+                        <div class="kart-alt"><span>Takım: 2 / 3</span><a href="#" class="buton buton-kucuk">İncele</a></div>
+                    </article>
+                    <article class="kart">
+                        <span class="durum durum-devam">Devam ediyor</span>
+                        <h3>Kayıp Eşya Bildirimi</h3>
+                        <p>Kampüste kaybolan ve bulunan eşyaların fotoğraflı ilan sistemi.</p>
+                        <div class="etiketler"><span>Flutter</span></div>
+                        <div class="kart-alt"><span>Takım: 3 / 3</span><a href="#" class="buton buton-kucuk">İncele</a></div>
+                    </article>
+                    <article class="kart">
+                        <span class="durum durum-acik">Açık</span>
+                        <h3>Sınav Takvimi Hatırlatıcı</h3>
+                        <p>Sınav tarihlerini takvime ekleyip hatırlatma gönderen web uygulaması.</p>
+                        <div class="etiketler"><span>HTML / CSS</span><span>JavaScript</span></div>
+                        <div class="kart-alt"><span>Takım: 1 / 2</span><a href="#" class="buton buton-kucuk">İncele</a></div>
+                    </article>
+                </div>
+
+                <nav class="sayfalama" aria-label="Sayfalar">
+                    <a href="#" class="pasif">&laquo; Önceki</a>
+                    <a href="#" class="aktif">1</a>
+                    <a href="#">2</a>
+                    <a href="#">Sonraki &raquo;</a>
+                </nav>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>Öğrenci, Mentör ve Proje Eşleştirme Platformu &middot; Web Tasarım Dersi Hafta 03</p>
+    </footer>
+</body>
+</html>
