@@ -11,7 +11,7 @@ Web Tasarım dersi kapsamında yapılan ders çalışmaları, uygulamalar ve öd
 
 ## Klasör Yapısı
 
-Her haftanın çalışmaları ayrı bir klasörde tutulur:
+Her haftanın çalışmaları ayrı bir klasörde tutulur. Hangi haftada ne yapılacağı [PLAN.md](PLAN.md) dosyasında yazılıdır.
 
 ```
 hafta-01/
