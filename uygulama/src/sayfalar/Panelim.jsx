@@ -6,6 +6,8 @@ import { useOturum } from "../baglam/OturumBaglami";
 import { kullanicininProjeleri } from "../api/projeler";
 import { basvuruDurumuDegistir, benimBasvurularim } from "../api/basvurular";
 import { onerilenProjeler } from "../api/eslesme";
+import { gelenTalepler, talebeYanitVer } from "../api/mentorluk";
+import { yaklasanGorusmelerim } from "../api/gorusmeler";
 import PuanRozeti from "../bilesenler/PuanRozeti";
 import ProjeKarti from "../bilesenler/ProjeKarti";
 import { BosDurum, Yukleniyor } from "../bilesenler/Durumlar";
@@ -73,6 +75,86 @@ function Basvurularim({ profil }) {
         </tbody>
       </table>
     </div>
+  );
+}
+
+function GelenTalepler({ profil }) {
+  const { calistir, calisiyor } = useIslem();
+  const talepler = useQuery({
+    queryKey: ["gelen-talepler", profil.id],
+    queryFn: () => gelenTalepler(profil.id),
+  });
+
+  if (talepler.isPending) return <Yukleniyor />;
+  if (!talepler.data.length) return <BosDurum>Bekleyen mentörlük talebin yok.</BosDurum>;
+
+  return (
+    <ul className="basvuru-listesi">
+      {talepler.data.map((t) => (
+        <li key={t.id} className="basvuru">
+          <strong>
+            <Link to={`/projeler/${t.proje.id}`} className="icerik-linki">
+              {t.proje.baslik}
+            </Link>
+          </strong>
+          <small className="soluk">
+            {" "}
+            &middot; Proje lideri: {t.proje.sahip?.adSoyad} &middot;{" "}
+            {format(new Date(t.olusturulma), "d MMM", { locale: tr })}
+          </small>
+          <p className="metin-satirlari">{t.mesaj}</p>
+          <div className="buton-satiri">
+            <button
+              type="button"
+              className="buton buton-kucuk"
+              disabled={calisiyor}
+              onClick={() => calistir(() => talebeYanitVer(t.id, true), "Talebi kabul ettin; artık bu projenin mentörüsün.")}
+            >
+              Kabul Et
+            </button>
+            <button
+              type="button"
+              className="buton buton-kucuk buton-cizgili"
+              disabled={calisiyor}
+              onClick={() => calistir(() => talebeYanitVer(t.id, false), "Talep reddedildi.")}
+            >
+              Reddet
+            </button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function YaklasanGorusmeler() {
+  const gorusmeler = useQuery({ queryKey: ["yaklasan-gorusmeler"], queryFn: yaklasanGorusmelerim });
+  if (gorusmeler.isPending || !gorusmeler.data?.length) return null;
+
+  return (
+    <section className="bolum-blok sol" aria-labelledby="gorusmelerim">
+      <h2 id="gorusmelerim">Yaklaşan Görüşmeler</h2>
+      <ul className="gorusme-listesi panel">
+        {gorusmeler.data.map((g) => (
+          <li key={g.id}>
+            <div className="esnek-buyu">
+              <strong>{format(new Date(g.baslangic), "d MMMM EEEE, HH:mm", { locale: tr })}</strong>
+              <small className="soluk">
+                <Link to={`/projeler/${g.projeId}`} className="icerik-linki">
+                  {g.proje?.baslik}
+                </Link>{" "}
+                &middot; {g.sureDk} dakika
+              </small>
+            </div>
+            {g.baglanti && (
+              <a href={g.baglanti} target="_blank" rel="noopener noreferrer" className="buton buton-kucuk">
+                Katıl
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 
@@ -157,6 +239,15 @@ export default function Panelim() {
       {profil.rol === "mentor" && profil.mentorDurumu === "pending" && (
         <p className="bilgi-kutusu alt-bosluk">Mentör hesabın yönetici onayı bekliyor.</p>
       )}
+
+      {profil.rol === "mentor" && profil.mentorDurumu === "approved" && (
+        <section className="bolum-blok sol" aria-labelledby="talepler">
+          <h2 id="talepler">Gelen Mentörlük Talepleri</h2>
+          <GelenTalepler profil={profil} />
+        </section>
+      )}
+
+      <YaklasanGorusmeler />
 
       {profil.rol === "student" && (
         <section className="bolum-blok sol" aria-labelledby="oneriler">

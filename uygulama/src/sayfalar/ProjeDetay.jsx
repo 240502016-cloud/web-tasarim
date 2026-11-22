@@ -9,6 +9,9 @@ import BasvuruKutusu from "../bilesenler/proje/BasvuruKutusu";
 import BasvuruListesi from "../bilesenler/proje/BasvuruListesi";
 import ProjeYonetimi from "../bilesenler/proje/ProjeYonetimi";
 import { MentorOnerileri, OgrenciOnerileri } from "../bilesenler/proje/Oneriler";
+import MentorTalepleri from "../bilesenler/proje/MentorTalepleri";
+import Gorusmeler from "../bilesenler/proje/Gorusmeler";
+import TakimSohbeti from "../bilesenler/proje/TakimSohbeti";
 import { DURUM_SINIFI, DURUM_YAZISI, basHarfler } from "../lib/metin";
 import { useIslem } from "../lib/useIslem";
 
@@ -29,6 +32,8 @@ export default function ProjeDetay() {
   const sahip = Boolean(profil) && profil.id === proje.sahipId;
   const uye = Boolean(profil) && proje.uyeler.some((u) => u.id === profil.id && u.rol === "member");
   const ogrenci = profil?.rol === "student";
+  const projeMentoru = Boolean(profil) && proje.mentorId === profil.id;
+  const ekipte = sahip || uye || projeMentoru;
 
   async function uyeyiCikar(u) {
     if (!window.confirm(`${u.adSoyad} takımdan çıkarılsın mı?`)) return;
@@ -144,13 +149,23 @@ export default function ProjeDetay() {
             ) : (
               <p className="soluk">Bu projenin henüz mentörü yok.</p>
             )}
+            {sahip && <MentorTalepleri proje={proje} />}
           </section>
 
           {sahip && <BasvuruListesi proje={proje} />}
           {sahip && !proje.mentor && proje.durum !== "completed" && proje.durum !== "cancelled" && (
-            <MentorOnerileri proje={proje} />
+            <MentorOnerileri
+              proje={proje}
+              eylem={(m) => (
+                <Link to={`/mentorler/${m.id}?proje=${proje.id}`} className="buton buton-kucuk">
+                  Talep Gönder
+                </Link>
+              )}
+            />
           )}
           {sahip && proje.durum === "open" && bosYer > 0 && <OgrenciOnerileri proje={proje} />}
+          {ekipte && <Gorusmeler proje={proje} profil={profil} planlayabilir={sahip || projeMentoru} />}
+          {ekipte && <TakimSohbeti proje={proje} profil={profil} />}
         </article>
 
         <aside className="panel yan-kutu">

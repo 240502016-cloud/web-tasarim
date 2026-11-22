@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import { useOturum } from "../baglam/OturumBaglami";
+import MentorTalepFormu from "../bilesenler/MentorTalepFormu";
 import { mentorGetir, mentorunProjeleri } from "../api/mentorler";
 import { HataMesaji, Yukleniyor } from "../bilesenler/Durumlar";
 import { DURUM_YAZISI, basHarfler } from "../lib/metin";
 
 export default function MentorProfil() {
   const { id } = useParams();
+  const [parametreler] = useSearchParams();
+  const { profil } = useOturum();
   const sorgu = useQuery({ queryKey: ["mentor", id], queryFn: () => mentorGetir(id) });
   const projeler = useQuery({ queryKey: ["mentor-projeleri", id], queryFn: () => mentorunProjeleri(id) });
 
@@ -90,6 +94,9 @@ export default function MentorProfil() {
             </strong>{" "}
             proje &middot; {bosYer > 0 ? `${bosYer} yer boş` : "kapasite dolu"}
           </p>
+          {profil && profil.id !== mentor.id && profil.rol !== "admin" && (
+            <MentorTalepFormu mentor={mentor} profil={profil} onerilenProjeId={parametreler.get("proje")} />
+          )}
         </aside>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useOturum } from "../baglam/OturumBaglami";
+import BildirimZili from "./BildirimZili";
 
 export default function UstMenu() {
   const [acik, setAcik] = useState(false);
@@ -43,6 +44,7 @@ export default function UstMenu() {
           {kullanici ? (
             <>
               <NavLink to="/panelim">Panelim</NavLink>
+              <BildirimZili kullaniciId={kullanici.id} />
               <NavLink to="/profil">Profilim</NavLink>
               <button type="button" className="buton buton-kucuk buton-cizgili" onClick={cikis}>
                 Çıkış

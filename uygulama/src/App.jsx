@@ -12,6 +12,7 @@ import SifremiUnuttum from "./sayfalar/SifremiUnuttum";
 import SifreYenile from "./sayfalar/SifreYenile";
 import Profil from "./sayfalar/Profil";
 import Panelim from "./sayfalar/Panelim";
+import Bildirimler from "./sayfalar/Bildirimler";
 import ProjeFormu from "./sayfalar/ProjeFormu";
 import Kvkk from "./sayfalar/Kvkk";
 import Bulunamadi from "./sayfalar/Bulunamadi";
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="mentorler/:id" element={<MentorProfil />} />
           <Route path="profil" element={<Profil />} />
           <Route path="panelim" element={<Panelim />} />
+          <Route path="bildirimler" element={<Bildirimler />} />
           <Route path="projeler/yeni" element={<ProjeFormu />} />
           <Route path="projeler/:id/duzenle" element={<ProjeFormu />} />
         </Route>
