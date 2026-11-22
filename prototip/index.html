@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProjeEşleştir - Öğrenci, Mentör ve Proje Eşleştirme Platformu</title>
     <link rel="stylesheet" href="css/stil.css">
+    <script src="js/menu.js" defer></script>
 </head>
 <body>
+    <a href="#icerik" class="atla-linki">İçeriğe geç</a>
     <header class="ust-menu">
         <div class="kapsayici ust-menu-ic">
             <a href="index.html" class="logo">Proje<span>Eşleştir</span></a>
-            <nav class="ana-menu" aria-label="Ana menü">
+            <button type="button" class="menu-dugmesi" aria-expanded="false" aria-controls="ana-menu">Menü</button>
+            <nav id="ana-menu" class="ana-menu" aria-label="Ana menü">
                 <a href="projeler.html">Projeler</a>
                 <a href="mentorler.html">Mentörler</a>
                 <a href="giris.html" class="buton buton-kucuk buton-cizgili">Giriş Yap</a>
@@ -19,98 +22,100 @@
         </div>
     </header>
 
-    <section class="giris">
-        <div class="kapsayici">
-            <h1>Doğru proje, doğru ekip, doğru mentör</h1>
-            <p>Öğrencileri ilgi alanlarına uygun projelerle ve deneyimli mentörlerle buluşturan eşleştirme platformu.</p>
-            <form class="arama" action="projeler.html" method="get">
-                <input type="search" name="ara" aria-label="Proje veya beceri ara" placeholder="Proje veya beceri ara (ör. web, mobil, yapay zeka)">
-                <button type="submit" class="buton">Ara</button>
-            </form>
-            <div class="giris-butonlar">
-                <a href="kayit.html" class="buton">Öğrenci Olarak Katıl</a>
-                <a href="kayit.html#mentor" class="buton buton-cizgili">Mentör Olarak Katıl</a>
+    <main id="icerik">
+        <section class="giris">
+            <div class="kapsayici">
+                <h1>Doğru proje, doğru ekip, doğru mentör</h1>
+                <p>Öğrencileri ilgi alanlarına uygun projelerle ve deneyimli mentörlerle buluşturan eşleştirme platformu.</p>
+                <form class="arama" action="projeler.html" method="get">
+                    <input type="search" name="ara" aria-label="Proje veya beceri ara" placeholder="Proje veya beceri ara (ör. web, mobil, yapay zeka)">
+                    <button type="submit" class="buton">Ara</button>
+                </form>
+                <div class="giris-butonlar">
+                    <a href="kayit.html" class="buton">Öğrenci Olarak Katıl</a>
+                    <a href="kayit.html#mentor" class="buton buton-cizgili">Mentör Olarak Katıl</a>
+                </div>
             </div>
+        </section>
+
+                <div class="kapsayici">
+            <section class="bolum-blok" id="nasil-calisir">
+                <h2>Nasıl Çalışır?</h2>
+                <div class="adimlar">
+                    <div class="adim">
+                        <span class="adim-no">1</span>
+                        <h3>Profilini Oluştur</h3>
+                        <p>Bölümünü, becerilerini ve ilgi alanlarını ekle.</p>
+                    </div>
+                    <div class="adim">
+                        <span class="adim-no">2</span>
+                        <h3>Eşleşmeleri Gör</h3>
+                        <p>Sana uygun projeler, takım arkadaşları ve mentörler listelenir.</p>
+                    </div>
+                    <div class="adim">
+                        <span class="adim-no">3</span>
+                        <h3>Projeye Başla</h3>
+                        <p>Takımına katıl, mentörünle görüş ve projeni geliştir.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bolum-blok">
+                <h2>Öne Çıkan Projeler</h2>
+                <div class="izgara">
+                    <article class="kart">
+                        <span class="durum durum-acik">Açık</span>
+                        <h3>Kampüs Etkinlik Uygulaması</h3>
+                        <p>Kulüp ve etkinlik duyurularını tek yerde toplayan mobil uygulama.</p>
+                        <div class="etiketler"><span>Flutter</span><span>Firebase</span></div>
+                        <div class="kart-alt"><span>Takım: 2 / 4</span><a href="proje.html" class="buton buton-kucuk">İncele</a></div>
+                    </article>
+                    <article class="kart">
+                        <span class="durum durum-acik">Açık</span>
+                        <h3>Kütüphane Doluluk Takibi</h3>
+                        <p>Kütüphane salonlarının anlık doluluk oranını gösteren web sitesi.</p>
+                        <div class="etiketler"><span>HTML / CSS</span><span>JavaScript</span></div>
+                        <div class="kart-alt"><span>Takım: 1 / 3</span><a href="proje.html" class="buton buton-kucuk">İncele</a></div>
+                    </article>
+                    <article class="kart">
+                        <span class="durum durum-acik">Açık</span>
+                        <h3>Ders Notu Öneri Sistemi</h3>
+                        <p>Öğrencilere derslerine göre kaynak ve not öneren sistem.</p>
+                        <div class="etiketler"><span>Python</span><span>Yapay Zeka</span></div>
+                        <div class="kart-alt"><span>Takım: 3 / 4</span><a href="proje.html" class="buton buton-kucuk">İncele</a></div>
+                    </article>
+                </div>
+                <p class="tumunu-gor"><a href="projeler.html" class="buton buton-cizgili">Tüm Projeler</a></p>
+            </section>
+
+            <section class="bolum-blok">
+                <h2>Mentörler</h2>
+                <div class="izgara">
+                    <article class="kart mentor-kart">
+                        <span class="avatar">YM</span>
+                        <h3>Yazılım Mühendisi</h3>
+                        <p class="alan">Web Geliştirme</p>
+                        <p>6 yıl deneyim &middot; Haftada 2 görüşme</p>
+                        <a href="mentor.html" class="buton buton-kucuk buton-cizgili">Profili Gör</a>
+                    </article>
+                    <article class="kart mentor-kart">
+                        <span class="avatar">VB</span>
+                        <h3>Veri Bilimci</h3>
+                        <p class="alan">Yapay Zeka</p>
+                        <p>4 yıl deneyim &middot; Haftada 1 görüşme</p>
+                        <a href="mentor.html" class="buton buton-kucuk buton-cizgili">Profili Gör</a>
+                    </article>
+                    <article class="kart mentor-kart">
+                        <span class="avatar">MG</span>
+                        <h3>Mobil Geliştirici</h3>
+                        <p class="alan">Android / iOS</p>
+                        <p>5 yıl deneyim &middot; Haftada 2 görüşme</p>
+                        <a href="mentor.html" class="buton buton-kucuk buton-cizgili">Profili Gör</a>
+                    </article>
+                </div>
+                <p class="tumunu-gor"><a href="mentorler.html" class="buton buton-cizgili">Tüm Mentörler</a></p>
+            </section>
         </div>
-    </section>
-
-    <main class="kapsayici">
-        <section class="bolum-blok" id="nasil-calisir">
-            <h2>Nasıl Çalışır?</h2>
-            <div class="adimlar">
-                <div class="adim">
-                    <span class="adim-no">1</span>
-                    <h3>Profilini Oluştur</h3>
-                    <p>Bölümünü, becerilerini ve ilgi alanlarını ekle.</p>
-                </div>
-                <div class="adim">
-                    <span class="adim-no">2</span>
-                    <h3>Eşleşmeleri Gör</h3>
-                    <p>Sana uygun projeler, takım arkadaşları ve mentörler listelenir.</p>
-                </div>
-                <div class="adim">
-                    <span class="adim-no">3</span>
-                    <h3>Projeye Başla</h3>
-                    <p>Takımına katıl, mentörünle görüş ve projeni geliştir.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="bolum-blok">
-            <h2>Öne Çıkan Projeler</h2>
-            <div class="izgara">
-                <article class="kart">
-                    <span class="durum durum-acik">Açık</span>
-                    <h3>Kampüs Etkinlik Uygulaması</h3>
-                    <p>Kulüp ve etkinlik duyurularını tek yerde toplayan mobil uygulama.</p>
-                    <div class="etiketler"><span>Flutter</span><span>Firebase</span></div>
-                    <div class="kart-alt"><span>Takım: 2 / 4</span><a href="proje.html" class="buton buton-kucuk">İncele</a></div>
-                </article>
-                <article class="kart">
-                    <span class="durum durum-acik">Açık</span>
-                    <h3>Kütüphane Doluluk Takibi</h3>
-                    <p>Kütüphane salonlarının anlık doluluk oranını gösteren web sitesi.</p>
-                    <div class="etiketler"><span>HTML / CSS</span><span>JavaScript</span></div>
-                    <div class="kart-alt"><span>Takım: 1 / 3</span><a href="proje.html" class="buton buton-kucuk">İncele</a></div>
-                </article>
-                <article class="kart">
-                    <span class="durum durum-acik">Açık</span>
-                    <h3>Ders Notu Öneri Sistemi</h3>
-                    <p>Öğrencilere derslerine göre kaynak ve not öneren sistem.</p>
-                    <div class="etiketler"><span>Python</span><span>Yapay Zeka</span></div>
-                    <div class="kart-alt"><span>Takım: 3 / 4</span><a href="proje.html" class="buton buton-kucuk">İncele</a></div>
-                </article>
-            </div>
-            <p class="tumunu-gor"><a href="projeler.html" class="buton buton-cizgili">Tüm Projeler</a></p>
-        </section>
-
-        <section class="bolum-blok">
-            <h2>Mentörler</h2>
-            <div class="izgara">
-                <article class="kart mentor-kart">
-                    <span class="avatar">YM</span>
-                    <h3>Yazılım Mühendisi</h3>
-                    <p class="alan">Web Geliştirme</p>
-                    <p>6 yıl deneyim &middot; Haftada 2 görüşme</p>
-                    <a href="mentor.html" class="buton buton-kucuk buton-cizgili">Profili Gör</a>
-                </article>
-                <article class="kart mentor-kart">
-                    <span class="avatar">VB</span>
-                    <h3>Veri Bilimci</h3>
-                    <p class="alan">Yapay Zeka</p>
-                    <p>4 yıl deneyim &middot; Haftada 1 görüşme</p>
-                    <a href="mentor.html" class="buton buton-kucuk buton-cizgili">Profili Gör</a>
-                </article>
-                <article class="kart mentor-kart">
-                    <span class="avatar">MG</span>
-                    <h3>Mobil Geliştirici</h3>
-                    <p class="alan">Android / iOS</p>
-                    <p>5 yıl deneyim &middot; Haftada 2 görüşme</p>
-                    <a href="mentor.html" class="buton buton-kucuk buton-cizgili">Profili Gör</a>
-                </article>
-            </div>
-            <p class="tumunu-gor"><a href="mentorler.html" class="buton buton-cizgili">Tüm Mentörler</a></p>
-        </section>
     </main>
 
     <footer>

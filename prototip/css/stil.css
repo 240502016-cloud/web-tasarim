@@ -862,3 +862,111 @@ footer {
 .ayrik-form h2 {
     margin: 0 0 4px;
 }
+
+/* =========================================================
+   Hafta 8: erişilebilirlik ve duyarlı tasarım düzeltmeleri
+   ========================================================= */
+
+/* Kısa sayfalarda alt bilgi en altta kalsın */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body > main {
+    flex: 1;
+}
+
+/* Yalnızca ekran okuyucuların okuyacağı metin */
+.ekran-okuyucu {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* Klavye kullanıcıları için "İçeriğe geç" bağlantısı */
+.atla-linki {
+    position: absolute;
+    top: -48px;
+    left: 16px;
+    z-index: 10;
+    padding: 8px 16px;
+    border-radius: 0 0 6px 6px;
+    color: var(--beyaz);
+    background-color: var(--yazi);
+}
+
+.atla-linki:focus {
+    top: 0;
+}
+
+/* Klavyeyle gezinirken odak her zaman görünsün */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.gizli-secim:focus-visible ~ .rol-secici label {
+    outline: 3px solid var(--ana-renk);
+    outline-offset: 2px;
+}
+
+/* Metin içindeki bağlantılar yalnızca renkle ayırt edilmesin */
+p a:not(.buton),
+.onay a,
+.form-alani a:not(.buton) {
+    text-decoration: underline;
+}
+
+/* Hareket azaltma tercihine uy */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .kart:hover {
+        transform: none;
+    }
+}
+
+/* Telefon menüsü */
+.menu-dugmesi {
+    display: none;
+    padding: 6px 14px;
+    border: 1px solid var(--kenarlik-koyu);
+    border-radius: 6px;
+    background-color: var(--beyaz);
+    font-family: inherit;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .ust-menu-ic {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .js .menu-dugmesi {
+        display: block;
+    }
+
+    .js .ana-menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .js .ana-menu.acik {
+        display: flex;
+    }
+}

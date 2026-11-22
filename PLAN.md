@@ -17,7 +17,7 @@ Dönem projesi: **Öğrenci, Mentör ve Proje Eşleştirme Platformu**
 | 5 | Form doğrulama | Kayıt ve giriş sayfaları: rol seçimi, `.edu.tr` e-posta kontrolü, HTML5 doğrulama | ✅ |
 | 6 | JavaScript ve DOM | Proje listesini JavaScript ile oluşturma; arama, beceri filtresi ve "boş yer var" filtresi | ✅ |
 | 7 | Sayfaları birleştirme | Mentör listesi ve mentör profil sayfası; tüm sayfaları ortak stil dosyasıyla tek prototipte birleştirme | ✅ |
-| 8 | Ara sınav haftası | Prototipin gözden geçirilmesi; duyarlı tasarım ve erişilebilirlik düzeltmeleri | ⬜ |
+| 8 | Ara sınav haftası | Prototipin gözden geçirilmesi; duyarlı tasarım ve erişilebilirlik düzeltmeleri | ✅ |
 | 9 | React'e geçiş | Vite + React kurulumu; sayfaların bileşenlere bölünmesi, `react-router-dom` ile yönlendirme | ⬜ |
 | 10 | Supabase | Veritabanı tabloları, kayıt / giriş (Supabase Auth), RLS politikaları | ⬜ |
 | 11 | Proje ve başvuru | Proje oluşturma / düzenleme, başvuru gönderme, kabul / ret akışı | ⬜ |

@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mentörler - ProjeEşleştir</title>
     <link rel="stylesheet" href="css/stil.css">
+    <script src="js/menu.js" defer></script>
 </head>
 <body>
+    <a href="#icerik" class="atla-linki">İçeriğe geç</a>
     <header class="ust-menu">
         <div class="kapsayici ust-menu-ic">
             <a href="index.html" class="logo">Proje<span>Eşleştir</span></a>
-            <nav class="ana-menu" aria-label="Ana menü">
+            <button type="button" class="menu-dugmesi" aria-expanded="false" aria-controls="ana-menu">Menü</button>
+            <nav id="ana-menu" class="ana-menu" aria-label="Ana menü">
                 <a href="projeler.html">Projeler</a>
                 <a href="mentorler.html" aria-current="page">Mentörler</a>
                 <a href="giris.html" class="buton buton-kucuk buton-cizgili">Giriş Yap</a>
@@ -19,7 +22,7 @@
         </div>
     </header>
 
-    <main class="kapsayici">
+    <main id="icerik" class="kapsayici">
         <div class="sayfa-baslik">
             <h1>Mentörler</h1>
             <p>Projene yol gösterecek deneyimli bir mentör bul. Mentörlük talebini proje lideri gönderir.</p>
@@ -36,6 +39,7 @@
             </select>
         </div>
 
+        <h2 class="ekran-okuyucu">Mentör listesi</h2>
         <div class="izgara">
             <article class="kart mentor-kart">
                 <span class="avatar">YM</span>
