@@ -1,13 +1,16 @@
 {
-  "name": "uygulama",
+  "name": "proje-eslestir",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "preview": "vite preview",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "format": "prettier --write src",
+    "test": "vitest run",
+    "test:db": "node --test \"supabase/testler/*.test.mjs\""
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.8",
@@ -24,6 +27,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.17",
     "@testing-library/jest-dom": "^8.0.0",
     "@testing-library/react": "^16.3.3",
     "@types/react": "^19.3.0",

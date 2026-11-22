@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
-import { mentorGetir } from "../api/mentorler";
+import { mentorGetir, mentorunProjeleri } from "../api/mentorler";
 import { HataMesaji, Yukleniyor } from "../bilesenler/Durumlar";
-import { basHarfler } from "../lib/metin";
+import { DURUM_YAZISI, basHarfler } from "../lib/metin";
 
 export default function MentorProfil() {
   const { id } = useParams();
   const sorgu = useQuery({ queryKey: ["mentor", id], queryFn: () => mentorGetir(id) });
+  const projeler = useQuery({ queryKey: ["mentor-projeleri", id], queryFn: () => mentorunProjeleri(id) });
 
   if (sorgu.isPending) return <div className="kapsayici"><Yukleniyor /></div>;
   if (sorgu.isError) return <div className="kapsayici"><HataMesaji hata={sorgu.error} /></div>;
@@ -43,6 +44,28 @@ export default function MentorProfil() {
               <p className="metin-satirlari">{mentor.hakkinda}</p>
             </section>
           )}
+
+          <section className="bolum">
+            <h2>Mentörlük Yaptığı Projeler</h2>
+            {projeler.data?.length ? (
+              <ul className="kisi-listesi">
+                {projeler.data.map((p) => (
+                  <li key={p.id}>
+                    <div>
+                      <strong>
+                        <Link to={`/projeler/${p.id}`}>{p.baslik}</Link>
+                      </strong>
+                      <small>
+                        {DURUM_YAZISI[p.durum]} &middot; {p.uyeSayisi} / {p.takimBuyuklugu} kişilik takım
+                      </small>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="soluk">Henüz mentörlük yaptığı bir proje yok.</p>
+            )}
+          </section>
 
           <section className="bolum">
             <h2>Uzmanlık Alanları</h2>

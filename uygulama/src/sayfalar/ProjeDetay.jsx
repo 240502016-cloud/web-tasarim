@@ -3,11 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import { projeGetir } from "../api/projeler";
+import { useOturum } from "../baglam/OturumBaglami";
 import { HataMesaji, Yukleniyor } from "../bilesenler/Durumlar";
 import { DURUM_SINIFI, DURUM_YAZISI, basHarfler } from "../lib/metin";
 
 export default function ProjeDetay() {
   const { id } = useParams();
+  const { kullanici } = useOturum();
   const sorgu = useQuery({ queryKey: ["proje", id], queryFn: () => projeGetir(id) });
 
   if (sorgu.isPending) return <div className="kapsayici"><Yukleniyor /></div>;
@@ -60,6 +62,38 @@ export default function ProjeDetay() {
           </section>
 
           <section className="bolum">
+            <h2>Takım</h2>
+            <ul className="kisi-listesi">
+              {proje.uyeler.map((u) => (
+                <li key={u.id}>
+                  <span className="avatar" aria-hidden="true">
+                    {u.adSoyad ? basHarfler(u.adSoyad) : "?"}
+                  </span>
+                  <div>
+                    <strong>{u.adSoyad ?? "Takım üyesi"}</strong>
+                    <small>
+                      {u.rol === "leader" ? "Proje lideri" : "Üye"}
+                      {u.bolum && ` · ${u.bolum}`}
+                      {u.sinif && `, ${u.sinif}. sınıf`}
+                    </small>
+                  </div>
+                </li>
+              ))}
+              {bosYer > 0 && (
+                <li className="bos-yer">
+                  <span className="avatar" aria-hidden="true">
+                    +
+                  </span>
+                  <div>
+                    <strong>Boş yer</strong>
+                    <small>{bosYer} kişi daha aranıyor</small>
+                  </div>
+                </li>
+              )}
+            </ul>
+          </section>
+
+          <section className="bolum">
             <h2>Mentör</h2>
             {proje.mentor ? (
               <ul className="kisi-listesi">
@@ -92,9 +126,15 @@ export default function ProjeDetay() {
             </strong>{" "}
             kişi &middot; {bosYer > 0 ? `${bosYer} yer boş` : "takım dolu"}
           </p>
-          <p className="bilgi-kutusu">
-            Başvurmak için <Link to="/giris">giriş yap</Link>.
-          </p>
+          {!kullanici && (
+            <p className="bilgi-kutusu">
+              Başvurmak için{" "}
+              <Link to="/giris" state={{ geri: `/projeler/${proje.id}` }}>
+                giriş yap
+              </Link>
+              .
+            </p>
+          )}
         </aside>
       </div>
     </div>

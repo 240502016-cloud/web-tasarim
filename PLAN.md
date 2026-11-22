@@ -19,7 +19,7 @@ Dönem projesi: **Öğrenci, Mentör ve Proje Eşleştirme Platformu**
 | 7 | Sayfaları birleştirme | Mentör listesi ve mentör profil sayfası; tüm sayfaları ortak stil dosyasıyla tek prototipte birleştirme | ✅ |
 | 8 | Ara sınav haftası | Prototipin gözden geçirilmesi; duyarlı tasarım ve erişilebilirlik düzeltmeleri | ✅ |
 | 9 | React'e geçiş | Vite + React kurulumu; sayfaların bileşenlere bölünmesi, `react-router-dom` ile yönlendirme | ✅ |
-| 10 | Supabase | Veritabanı tabloları, kayıt / giriş (Supabase Auth), RLS politikaları | ⬜ |
+| 10 | Supabase | Veritabanı tabloları, kayıt / giriş (Supabase Auth), RLS politikaları | ✅ |
 | 11 | Proje ve başvuru | Proje oluşturma / düzenleme, başvuru gönderme, kabul / ret akışı | ⬜ |
 | 12 | Eşleştirme | Uygunluk puanı (PostgreSQL fonksiyonu), öğrenciye proje ve projeye mentör önerileri | ⬜ |
 | 13 | Mentörlük ve iletişim | Mentörlük talepleri, görüşme planlama, bildirimler, ekip mesajlaşması (Realtime) | ⬜ |

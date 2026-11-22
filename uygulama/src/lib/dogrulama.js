@@ -69,3 +69,24 @@ export const UZMANLIK_ALANLARI = [
   "Gömülü Sistemler",
   "Oyun Geliştirme",
 ];
+
+// Profil düzenleme formu (rol kayıttan sonra değiştirilemez)
+const hakkinda = z.string().max(1000, "En fazla 1000 karakter yazabilirsiniz.").optional();
+
+export const profilSemalari = {
+  student: z.object({
+    adSoyad: ortakAlanlar.adSoyad,
+    bolum: z.string().min(1, "Bölüm seçin."),
+    sinif: z.string().min(1, "Sınıf seçin."),
+    hakkinda,
+  }),
+  mentor: z.object({
+    adSoyad: ortakAlanlar.adSoyad,
+    unvan: z.string().trim().min(2, "Unvanınızı yazın."),
+    uzmanlik: z.string().min(1, "Uzmanlık alanı seçin."),
+    deneyimYili: aralik(1, 50),
+    kapasite: aralik(1, 5),
+    hakkinda,
+  }),
+  admin: z.object({ adSoyad: ortakAlanlar.adSoyad, hakkinda }),
+};

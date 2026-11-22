@@ -1066,3 +1066,93 @@ button.buton:disabled {
     background-color: var(--ana-renk);
     border-color: var(--ana-renk);
 }
+
+/* Uyarı ve bilgi kutuları */
+.uyari-kutusu {
+    padding: 10px 12px;
+    border-left: 4px solid var(--hata);
+    background-color: #fef2f2;
+    color: #991b1b;
+    font-size: 14px;
+}
+
+.bilgi-kutusu p {
+    margin: 0;
+}
+
+.sag-hizali {
+    margin: 8px 0 0;
+    text-align: right;
+    font-size: 14px;
+}
+
+.alt-bosluk {
+    margin-bottom: 20px;
+}
+
+.dar-form {
+    max-width: 480px;
+}
+
+/* Tehlikeli işlemler (hesap silme vb.) */
+.buton-tehlike {
+    border-color: var(--hata);
+    background-color: var(--hata);
+}
+
+.buton-tehlike:hover {
+    border-color: #b91c1c;
+    background-color: #b91c1c;
+}
+
+.tehlikeli-bolge {
+    border-color: #fecaca;
+}
+
+.metin-dugmesi {
+    padding: 2px 6px;
+    border: none;
+    background: none;
+    color: var(--ana-renk);
+    font-family: inherit;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.metin-dugmesi.tehlike {
+    color: var(--hata);
+}
+
+/* Beceri seçici */
+.beceri-ekle {
+    display: grid;
+    grid-template-columns: 1fr 160px auto;
+    gap: 8px;
+}
+
+.beceri-listesi {
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.beceri-listesi li {
+    display: grid;
+    grid-template-columns: 1fr 160px auto;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--kenarlik);
+}
+
+.beceri-listesi li:has(> :nth-child(2):last-child) {
+    grid-template-columns: 1fr auto;
+}
+
+@media (max-width: 600px) {
+    .beceri-ekle,
+    .beceri-listesi li {
+        grid-template-columns: 1fr;
+    }
+}

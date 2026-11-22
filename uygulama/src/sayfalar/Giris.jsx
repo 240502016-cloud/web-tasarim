@@ -1,19 +1,33 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { girisSemasi } from "../lib/dogrulama";
+import { useOturum } from "../baglam/OturumBaglami";
 import FormAlani from "../bilesenler/FormAlani";
 
 export default function Giris() {
+  const { kullanici, girisYap } = useOturum();
+  const navigate = useNavigate();
+  const konum = useLocation();
+  const [hata, setHata] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(girisSemasi) });
 
-  async function gonder() {
-    toast("Giriş, 10. haftada Supabase Auth ile bağlanacak.");
+  const geri = konum.state?.geri ?? "/profil";
+  if (kullanici) return <Navigate to={geri} replace />;
+
+  async function gonder(veri) {
+    setHata("");
+    try {
+      await girisYap(veri.eposta, veri.sifre);
+      navigate(geri, { replace: true });
+    } catch (e) {
+      setHata(e.message);
+    }
   }
 
   return (
@@ -36,6 +50,12 @@ export default function Giris() {
           Hesabın yok mu? <Link to="/kayit">Kayıt ol</Link>
         </p>
 
+        {hata && (
+          <p className="uyari-kutusu" role="alert">
+            {hata}
+          </p>
+        )}
+
         <form className="form" onSubmit={handleSubmit(gonder)} noValidate>
           <FormAlani id="eposta" etiket="E-posta" hata={errors.eposta}>
             <input type="email" autoComplete="email" {...register("eposta")} />
@@ -45,7 +65,11 @@ export default function Giris() {
             <input type="password" autoComplete="current-password" {...register("sifre")} />
           </FormAlani>
 
-          <button type="submit" className="buton buton-tam ust-bosluk" disabled={isSubmitting}>
+          <p className="sag-hizali">
+            <Link to="/sifremi-unuttum">Şifremi unuttum</Link>
+          </p>
+
+          <button type="submit" className="buton buton-tam" disabled={isSubmitting}>
             {isSubmitting ? "Giriş yapılıyor..." : "Giriş Yap"}
           </button>
         </form>
