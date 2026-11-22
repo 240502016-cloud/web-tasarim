@@ -8,6 +8,7 @@ import { HataMesaji, Yukleniyor } from "../bilesenler/Durumlar";
 import BasvuruKutusu from "../bilesenler/proje/BasvuruKutusu";
 import BasvuruListesi from "../bilesenler/proje/BasvuruListesi";
 import ProjeYonetimi from "../bilesenler/proje/ProjeYonetimi";
+import { MentorOnerileri, OgrenciOnerileri } from "../bilesenler/proje/Oneriler";
 import { DURUM_SINIFI, DURUM_YAZISI, basHarfler } from "../lib/metin";
 import { useIslem } from "../lib/useIslem";
 
@@ -146,6 +147,10 @@ export default function ProjeDetay() {
           </section>
 
           {sahip && <BasvuruListesi proje={proje} />}
+          {sahip && !proje.mentor && proje.durum !== "completed" && proje.durum !== "cancelled" && (
+            <MentorOnerileri proje={proje} />
+          )}
+          {sahip && proje.durum === "open" && bosYer > 0 && <OgrenciOnerileri proje={proje} />}
         </article>
 
         <aside className="panel yan-kutu">

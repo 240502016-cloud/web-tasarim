@@ -1276,3 +1276,65 @@ details summary {
 .tablo a {
     color: var(--ana-renk);
 }
+
+/* Eşleştirme puanı */
+.puan-alani {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 4px 0 12px;
+}
+
+.puan-alani small {
+    font-size: 13px;
+}
+
+.puan-rozeti {
+    align-self: flex-start;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.puan-yuksek {
+    color: #166534;
+    background-color: #dcfce7;
+}
+
+.puan-orta {
+    color: #92400e;
+    background-color: #fef3c7;
+}
+
+.puan-dusuk {
+    color: #374151;
+    background-color: #e5e7eb;
+}
+
+.oneri-listesi {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.oneri-listesi li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--kenarlik);
+}
+
+.oneri-listesi li:last-child {
+    border-bottom: none;
+}
+
+.oneri-listesi strong,
+.oneri-listesi small {
+    display: block;
+}
+
+.oneri-listesi a {
+    color: var(--ana-renk);
+}

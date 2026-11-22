@@ -1,7 +1,7 @@
 import { supabase, sonuc } from "../lib/supabase";
 
 // Ziyaretçiler profil tablosunu okuyamadığı için sahip/mentör bilgisi onlara boş (null) gelir
-const LISTE_ALANLARI = `
+export const LISTE_ALANLARI = `
   id, title, description, status, team_size, duration_weeks, created_at, owner_id, mentor_id,
   owner:profiles!projects_owner_id_fkey(id, full_name, department),
   mentor:profiles!projects_mentor_id_fkey(id, full_name, title),

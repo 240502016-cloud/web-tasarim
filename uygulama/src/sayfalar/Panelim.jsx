@@ -5,6 +5,8 @@ import { tr } from "date-fns/locale";
 import { useOturum } from "../baglam/OturumBaglami";
 import { kullanicininProjeleri } from "../api/projeler";
 import { basvuruDurumuDegistir, benimBasvurularim } from "../api/basvurular";
+import { onerilenProjeler } from "../api/eslesme";
+import PuanRozeti from "../bilesenler/PuanRozeti";
 import ProjeKarti from "../bilesenler/ProjeKarti";
 import { BosDurum, Yukleniyor } from "../bilesenler/Durumlar";
 import { BASVURU_DURUMU } from "../lib/dogrulama";
@@ -74,6 +76,32 @@ function Basvurularim({ profil }) {
   );
 }
 
+function Onerilenler({ profil }) {
+  const oneriler = useQuery({
+    queryKey: ["onerilen-projeler", profil.id],
+    queryFn: onerilenProjeler,
+  });
+
+  if (oneriler.isPending) return <Yukleniyor />;
+  if (!oneriler.data.length) {
+    return (
+      <BosDurum>
+        {profil.beceriler.length
+          ? "Şu an becerilerine uyan açık proje yok. Yeni projeler eklendikçe burada görünecek."
+          : "Öneri alabilmek için profiline becerilerini ekle."}
+      </BosDurum>
+    );
+  }
+
+  return (
+    <div className="izgara">
+      {oneriler.data.map((o) => (
+        <ProjeKarti key={o.proje.id} proje={o.proje} ek={<PuanRozeti oneri={o} />} />
+      ))}
+    </div>
+  );
+}
+
 function Projelerim({ profil }) {
   const projeler = useQuery({
     queryKey: ["projelerim", profil.id],
@@ -128,6 +156,14 @@ export default function Panelim() {
       )}
       {profil.rol === "mentor" && profil.mentorDurumu === "pending" && (
         <p className="bilgi-kutusu alt-bosluk">Mentör hesabın yönetici onayı bekliyor.</p>
+      )}
+
+      {profil.rol === "student" && (
+        <section className="bolum-blok sol" aria-labelledby="oneriler">
+          <h2 id="oneriler">Sana Önerilen Projeler</h2>
+          <p className="soluk">Becerilerine ve seviyelerine göre en uygun açık projeler.</p>
+          <Onerilenler profil={profil} />
+        </section>
       )}
 
       <section className="bolum-blok sol" aria-labelledby="projelerim">
