@@ -1273,7 +1273,7 @@ details summary {
     border-bottom: none;
 }
 
-.tablo a {
+.tablo a:not(.buton) {
     color: var(--ana-renk);
 }
 
@@ -1335,7 +1335,7 @@ details summary {
     display: block;
 }
 
-.oneri-listesi a {
+.oneri-listesi a:not(.buton) {
     color: var(--ana-renk);
 }
 
@@ -1491,4 +1491,101 @@ details summary {
 
 .bildirim-listesi a:hover {
     color: var(--ana-renk);
+}
+
+/* Şikâyet */
+.sikayet-formu {
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    background-color: #fff;
+    color: var(--yazi);
+}
+
+.mesaj .metin-dugmesi {
+    padding: 0;
+    font-size: 11px;
+}
+
+.alinti {
+    margin: 8px 0;
+    padding: 8px 12px;
+    border-left: 4px solid var(--kenarlik-koyu);
+    background-color: var(--arka-plan);
+    color: var(--yazi-soluk);
+}
+
+/* Yönetim paneli */
+.sekmeler {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    border-bottom: 2px solid var(--kenarlik);
+}
+
+.sekmeler button {
+    padding: 10px 16px;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    background: none;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--yazi-soluk);
+    cursor: pointer;
+}
+
+.sekmeler button.secili {
+    border-bottom-color: var(--ana-renk);
+    color: var(--ana-renk);
+    font-weight: bold;
+}
+
+.istatistik-kartlari {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.istatistik {
+    padding: 16px;
+    background-color: var(--beyaz);
+    border: 1px solid var(--kenarlik);
+    border-radius: var(--kose);
+}
+
+.istatistik strong {
+    display: block;
+    font-size: 28px;
+    color: var(--ana-renk);
+}
+
+.istatistik span {
+    color: var(--yazi-soluk);
+    font-size: 14px;
+}
+
+.grafikler {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.grafikler figure {
+    margin: 0;
+}
+
+.grafikler figcaption {
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.askida-satir td {
+    color: var(--yazi-soluk);
+}
+
+.tablo .durum {
+    margin-left: 6px;
 }

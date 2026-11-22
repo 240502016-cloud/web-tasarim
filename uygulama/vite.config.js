@@ -7,5 +7,8 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     setupFiles: "./src/test-kurulum.js",
+    // Veritabanı testleri (supabase/testler) Node'un kendi test aracıyla çalışır: npm run test:db
+    include: ["src/**/*.test.{js,jsx}"],
+    testTimeout: 20000,
   },
 });

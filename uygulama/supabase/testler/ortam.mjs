@@ -5,6 +5,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { PGlite } from "@electric-sql/pglite";
+import { pgcrypto } from "@electric-sql/pglite/contrib/pgcrypto";
 
 const GOC_KLASORU = join(dirname(fileURLToPath(import.meta.url)), "..", "migrations");
 
@@ -15,11 +16,34 @@ const SUPABASE_TAKLIDI = `
   create role service_role nologin bypassrls;
 
   create schema auth;
+  create schema extensions;
+  -- auth.users'ın seed.sql'in kullandığı sütunları (Supabase Auth tablosunun bir alt kümesi)
   create table auth.users (
+    instance_id uuid,
     id uuid primary key default gen_random_uuid(),
+    aud text,
+    role text,
     email text unique,
+    encrypted_password text,
+    email_confirmed_at timestamptz,
+    raw_app_meta_data jsonb,
     raw_user_meta_data jsonb,
-    created_at timestamptz default now()
+    created_at timestamptz default now(),
+    updated_at timestamptz,
+    confirmation_token text,
+    email_change text,
+    email_change_token_new text,
+    recovery_token text
+  );
+  create table auth.identities (
+    id uuid primary key,
+    user_id uuid references auth.users (id) on delete cascade,
+    provider_id text,
+    identity_data jsonb,
+    provider text,
+    last_sign_in_at timestamptz,
+    created_at timestamptz,
+    updated_at timestamptz
   );
   -- Supabase'de auth.uid(), istekteki JWT'nin "sub" alanını döndürür
   create function auth.uid() returns uuid language sql stable as $$
@@ -32,15 +56,20 @@ const SUPABASE_TAKLIDI = `
   create publication supabase_realtime;
 `;
 
-export async function veritabaniOlustur() {
-  const db = new PGlite();
+export async function veritabaniOlustur({ ornekVeri = false } = {}) {
+  const db = new PGlite({ extensions: { pgcrypto } });
   await db.exec(SUPABASE_TAKLIDI);
-  for (const dosya of readdirSync(GOC_KLASORU).filter((d) => d.endsWith(".sql")).sort()) {
+  for (const dosya of readdirSync(GOC_KLASORU)
+    .filter((d) => d.endsWith(".sql"))
+    .sort()) {
     try {
       await db.exec(readFileSync(join(GOC_KLASORU, dosya), "utf8"));
     } catch (e) {
       throw new Error(`${dosya} çalıştırılamadı: ${e.message}`);
     }
+  }
+  if (ornekVeri) {
+    await db.exec(readFileSync(join(GOC_KLASORU, "..", "seed.sql"), "utf8"));
   }
   return db;
 }

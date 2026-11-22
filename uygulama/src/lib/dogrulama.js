@@ -93,10 +93,17 @@ export const profilSemalari = {
 
 // Boş bırakılan isteğe bağlı sayı alanı (NaN) "yok" sayılır
 const istegeBagliSayi = (en, enFazla) =>
-  z.preprocess((v) => (Number.isNaN(v) || v === "" ? undefined : v), aralik(en, enFazla).optional());
+  z.preprocess(
+    (v) => (Number.isNaN(v) || v === "" ? undefined : v),
+    aralik(en, enFazla).optional(),
+  );
 
 export const projeSemasi = z.object({
-  baslik: z.string().trim().min(5, "Başlık en az 5 karakter olmalı.").max(120, "Başlık en fazla 120 karakter olabilir."),
+  baslik: z
+    .string()
+    .trim()
+    .min(5, "Başlık en az 5 karakter olmalı.")
+    .max(120, "Başlık en fazla 120 karakter olabilir."),
   aciklama: z
     .string()
     .trim()

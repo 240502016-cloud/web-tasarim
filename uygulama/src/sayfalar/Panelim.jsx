@@ -53,10 +53,18 @@ function Basvurularim({ profil }) {
         <tbody>
           {basvurular.data.map((b) => (
             <tr key={b.id}>
-              <td>{b.proje ? <Link to={`/projeler/${b.proje.id}`}>{b.proje.baslik}</Link> : "Silinmiş proje"}</td>
+              <td>
+                {b.proje ? (
+                  <Link to={`/projeler/${b.proje.id}`}>{b.proje.baslik}</Link>
+                ) : (
+                  "Silinmiş proje"
+                )}
+              </td>
               <td>{format(new Date(b.olusturulma), "d MMM yyyy", { locale: tr })}</td>
               <td>
-                <span className={`durum ${BASVURU_SINIFI[b.durum]}`}>{BASVURU_DURUMU[b.durum]}</span>
+                <span className={`durum ${BASVURU_SINIFI[b.durum]}`}>
+                  {BASVURU_DURUMU[b.durum]}
+                </span>
               </td>
               <td>
                 {b.durum === "pending" && (
@@ -64,7 +72,12 @@ function Basvurularim({ profil }) {
                     type="button"
                     className="metin-dugmesi"
                     disabled={calisiyor}
-                    onClick={() => calistir(() => basvuruDurumuDegistir(b.id, "withdrawn"), "Başvuru geri çekildi.")}
+                    onClick={() =>
+                      calistir(
+                        () => basvuruDurumuDegistir(b.id, "withdrawn"),
+                        "Başvuru geri çekildi.",
+                      )
+                    }
                   >
                     Geri çek
                   </button>
@@ -108,7 +121,12 @@ function GelenTalepler({ profil }) {
               type="button"
               className="buton buton-kucuk"
               disabled={calisiyor}
-              onClick={() => calistir(() => talebeYanitVer(t.id, true), "Talebi kabul ettin; artık bu projenin mentörüsün.")}
+              onClick={() =>
+                calistir(
+                  () => talebeYanitVer(t.id, true),
+                  "Talebi kabul ettin; artık bu projenin mentörüsün.",
+                )
+              }
             >
               Kabul Et
             </button>
@@ -147,7 +165,12 @@ function YaklasanGorusmeler() {
               </small>
             </div>
             {g.baglanti && (
-              <a href={g.baglanti} target="_blank" rel="noopener noreferrer" className="buton buton-kucuk">
+              <a
+                href={g.baglanti}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="buton buton-kucuk"
+              >
                 Katıl
               </a>
             )}
@@ -212,7 +235,12 @@ function Projelerim({ profil }) {
 
 export default function Panelim() {
   const { profil } = useOturum();
-  if (!profil) return <div className="kapsayici"><Yukleniyor /></div>;
+  if (!profil)
+    return (
+      <div className="kapsayici">
+        <Yukleniyor />
+      </div>
+    );
 
   const aktif = !profil.askida && (profil.rol !== "mentor" || profil.mentorDurumu === "approved");
 

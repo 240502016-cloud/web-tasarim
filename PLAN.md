@@ -23,4 +23,4 @@ Dönem projesi: **Öğrenci, Mentör ve Proje Eşleştirme Platformu**
 | 11 | Proje ve başvuru | Proje oluşturma / düzenleme, başvuru gönderme, kabul / ret akışı | ✅ |
 | 12 | Eşleştirme | Uygunluk puanı (PostgreSQL fonksiyonu), öğrenciye proje ve projeye mentör önerileri | ✅ |
 | 13 | Mentörlük ve iletişim | Mentörlük talepleri, görüşme planlama, bildirimler, ekip mesajlaşması (Realtime) | ✅ |
-| 14 | Yayın ve sunum | Yönetici paneli, testler, Vercel'e yayın, sunum hazırlığı | ⬜ |
+| 14 | Yayın ve sunum | Yönetici paneli, testler, Vercel'e yayın, sunum hazırlığı | ✅ |

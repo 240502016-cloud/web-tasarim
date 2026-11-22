@@ -4,39 +4,11 @@ import { useSearchParams } from "react-router-dom";
 import { projeleriGetir } from "../api/projeler";
 import ProjeKarti from "../bilesenler/ProjeKarti";
 import { BosDurum, HataMesaji, Yukleniyor } from "../bilesenler/Durumlar";
-import { kucukHarf } from "../lib/metin";
+import { projeleriFiltrele } from "../lib/filtre";
 import { useOturum } from "../baglam/OturumBaglami";
 import { Link } from "react-router-dom";
 
 const SAYFA_BOYUTU = 12;
-
-// 6. haftadaki filtreleme mantığı (hafta-06/app.js) React'e taşındı
-export function projeleriFiltrele(projeler, { aranan, beceriler, durum, sadeceBosYer, siralama }) {
-  const metin = kucukHarf(aranan.trim());
-
-  const sonuc = projeler.filter((p) => {
-    if (p.durum === "cancelled") return false;
-    const metinUyuyor =
-      !metin ||
-      kucukHarf(p.baslik).includes(metin) ||
-      kucukHarf(p.aciklama).includes(metin) ||
-      p.beceriler.some((b) => kucukHarf(b.ad).includes(metin));
-    const beceriUyuyor =
-      beceriler.length === 0 || p.beceriler.some((b) => beceriler.includes(b.ad));
-    const durumUyuyor = durum === "tumu" || p.durum === durum;
-    const bosYerUyuyor = !sadeceBosYer || p.uyeSayisi < p.takimBuyuklugu;
-    return metinUyuyor && beceriUyuyor && durumUyuyor && bosYerUyuyor;
-  });
-
-  if (siralama === "bos-yer") {
-    sonuc.sort((a, b) => b.takimBuyuklugu - b.uyeSayisi - (a.takimBuyuklugu - a.uyeSayisi));
-  } else if (siralama === "ad") {
-    sonuc.sort((a, b) => a.baslik.localeCompare(b.baslik, "tr"));
-  } else {
-    sonuc.sort((a, b) => b.olusturulma.localeCompare(a.olusturulma));
-  }
-  return sonuc;
-}
 
 export default function Projeler() {
   const [parametreler] = useSearchParams();
@@ -69,7 +41,10 @@ export default function Projeler() {
 
   const sayfaSayisi = Math.max(1, Math.ceil(filtrelenmis.length / SAYFA_BOYUTU));
   const gecerliSayfa = Math.min(sayfa, sayfaSayisi);
-  const gosterilen = filtrelenmis.slice((gecerliSayfa - 1) * SAYFA_BOYUTU, gecerliSayfa * SAYFA_BOYUTU);
+  const gosterilen = filtrelenmis.slice(
+    (gecerliSayfa - 1) * SAYFA_BOYUTU,
+    gecerliSayfa * SAYFA_BOYUTU,
+  );
 
   // Her filtre değişikliğinde ilk sayfaya dön
   function degistir(ayarla) {
@@ -188,7 +163,9 @@ export default function Projeler() {
           {projeler.isPending && <Yukleniyor />}
           {projeler.isError && <HataMesaji hata={projeler.error} />}
           {projeler.isSuccess && gosterilen.length === 0 && (
-            <BosDurum>Aradığın kriterlere uygun proje bulunamadı. Filtreleri değiştirmeyi dene.</BosDurum>
+            <BosDurum>
+              Aradığın kriterlere uygun proje bulunamadı. Filtreleri değiştirmeyi dene.
+            </BosDurum>
           )}
 
           <div className="izgara">

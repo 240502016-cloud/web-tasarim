@@ -38,7 +38,12 @@ export default function BasvuruKutusu({ proje, profil }) {
           type="button"
           className="buton buton-cizgili buton-tam"
           disabled={calisiyor}
-          onClick={() => calistir(() => basvuruDurumuDegistir(sonBasvuru.id, "withdrawn"), "Başvurun geri çekildi.")}
+          onClick={() =>
+            calistir(
+              () => basvuruDurumuDegistir(sonBasvuru.id, "withdrawn"),
+              "Başvurun geri çekildi.",
+            )
+          }
         >
           Başvuruyu Geri Çek
         </button>
@@ -76,7 +81,9 @@ export default function BasvuruKutusu({ proje, profil }) {
       >
         <textarea rows="5" maxLength={1000} {...register("mesaj")} />
       </FormAlani>
-      <p className="ipucu">Başvurduğunda adın, bölümün ve becerilerin proje lideriyle paylaşılır.</p>
+      <p className="ipucu">
+        Başvurduğunda adın, bölümün ve becerilerin proje lideriyle paylaşılır.
+      </p>
       <button type="submit" className="buton buton-tam" disabled={calisiyor}>
         {calisiyor ? "Gönderiliyor..." : "Başvuruyu Gönder"}
       </button>

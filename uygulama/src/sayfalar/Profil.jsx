@@ -92,12 +92,22 @@ function ProfilFormu({ profil, onKaydet }) {
           <div className="iki-sutun">
             <div>
               <FormAlani id="deneyimYili" etiket="Deneyim (yıl)" hata={errors.deneyimYili}>
-                <input type="number" min="1" max="50" {...register("deneyimYili", { valueAsNumber: true })} />
+                <input
+                  type="number"
+                  min="1"
+                  max="50"
+                  {...register("deneyimYili", { valueAsNumber: true })}
+                />
               </FormAlani>
             </div>
             <div>
               <FormAlani id="kapasite" etiket="Aynı anda kaç proje?" hata={errors.kapasite}>
-                <input type="number" min="1" max="5" {...register("kapasite", { valueAsNumber: true })} />
+                <input
+                  type="number"
+                  min="1"
+                  max="5"
+                  {...register("kapasite", { valueAsNumber: true })}
+                />
               </FormAlani>
             </div>
           </div>
@@ -150,7 +160,12 @@ function BecerilerBolumu({ profil, onKaydet }) {
         Proje önerileri bu becerilere ve seviyelerine göre hesaplanır. 1: başlangıç, 5: uzman.
       </p>
       <BeceriSecici tumBeceriler={tumBeceriler.data ?? []} secili={secili} onChange={setSecili} />
-      <button type="button" className="buton ust-bosluk" onClick={kaydet} disabled={!degisti || kaydediliyor}>
+      <button
+        type="button"
+        className="buton ust-bosluk"
+        onClick={kaydet}
+        disabled={!degisti || kaydediliyor}
+      >
         {kaydediliyor ? "Kaydediliyor..." : "Becerileri Kaydet"}
       </button>
     </>
@@ -161,7 +176,12 @@ export default function Profil() {
   const { profil, profilYenile, kullanici } = useOturum();
   const navigate = useNavigate();
 
-  if (!profil) return <div className="kapsayici"><Yukleniyor /></div>;
+  if (!profil)
+    return (
+      <div className="kapsayici">
+        <Yukleniyor />
+      </div>
+    );
 
   async function sil() {
     const onay = window.confirm(
@@ -204,7 +224,9 @@ export default function Profil() {
       </section>
 
       <section className="panel alt-bosluk" aria-labelledby="beceriler-baslik">
-        <h2 id="beceriler-baslik">{profil.rol === "mentor" ? "Uzmanlık Alanlarım" : "Becerilerim"}</h2>
+        <h2 id="beceriler-baslik">
+          {profil.rol === "mentor" ? "Uzmanlık Alanlarım" : "Becerilerim"}
+        </h2>
         <BecerilerBolumu profil={profil} onKaydet={profilYenile} />
       </section>
 

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useOturum } from "../baglam/OturumBaglami";
 import MentorTalepFormu from "../bilesenler/MentorTalepFormu";
+import SikayetDugmesi from "../bilesenler/SikayetDugmesi";
 import { mentorGetir, mentorunProjeleri } from "../api/mentorler";
 import { HataMesaji, Yukleniyor } from "../bilesenler/Durumlar";
 import { DURUM_YAZISI, basHarfler } from "../lib/metin";
@@ -11,10 +12,23 @@ export default function MentorProfil() {
   const [parametreler] = useSearchParams();
   const { profil } = useOturum();
   const sorgu = useQuery({ queryKey: ["mentor", id], queryFn: () => mentorGetir(id) });
-  const projeler = useQuery({ queryKey: ["mentor-projeleri", id], queryFn: () => mentorunProjeleri(id) });
+  const projeler = useQuery({
+    queryKey: ["mentor-projeleri", id],
+    queryFn: () => mentorunProjeleri(id),
+  });
 
-  if (sorgu.isPending) return <div className="kapsayici"><Yukleniyor /></div>;
-  if (sorgu.isError) return <div className="kapsayici"><HataMesaji hata={sorgu.error} /></div>;
+  if (sorgu.isPending)
+    return (
+      <div className="kapsayici">
+        <Yukleniyor />
+      </div>
+    );
+  if (sorgu.isError)
+    return (
+      <div className="kapsayici">
+        <HataMesaji hata={sorgu.error} />
+      </div>
+    );
 
   const mentor = sorgu.data;
   const bosYer = Math.max(0, mentor.kapasite - mentor.aktifProje);
@@ -60,7 +74,8 @@ export default function MentorProfil() {
                         <Link to={`/projeler/${p.id}`}>{p.baslik}</Link>
                       </strong>
                       <small>
-                        {DURUM_YAZISI[p.durum]} &middot; {p.uyeSayisi} / {p.takimBuyuklugu} kişilik takım
+                        {DURUM_YAZISI[p.durum]} &middot; {p.uyeSayisi} / {p.takimBuyuklugu} kişilik
+                        takım
                       </small>
                     </div>
                   </li>
@@ -95,7 +110,16 @@ export default function MentorProfil() {
             proje &middot; {bosYer > 0 ? `${bosYer} yer boş` : "kapasite dolu"}
           </p>
           {profil && profil.id !== mentor.id && profil.rol !== "admin" && (
-            <MentorTalepFormu mentor={mentor} profil={profil} onerilenProjeId={parametreler.get("proje")} />
+            <MentorTalepFormu
+              mentor={mentor}
+              profil={profil}
+              onerilenProjeId={parametreler.get("proje")}
+            />
+          )}
+          {profil && profil.id !== mentor.id && (
+            <div className="ust-bosluk">
+              <SikayetDugmesi profil={profil} tur="profile" hedefId={mentor.id} />
+            </div>
           )}
         </aside>
       </div>

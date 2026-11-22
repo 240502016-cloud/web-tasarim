@@ -31,7 +31,12 @@ export default function SifreYenile() {
     }
   }
 
-  if (yukleniyor) return <div className="kapsayici"><Yukleniyor /></div>;
+  if (yukleniyor)
+    return (
+      <div className="kapsayici">
+        <Yukleniyor />
+      </div>
+    );
 
   return (
     <div className="kapsayici dar-form">

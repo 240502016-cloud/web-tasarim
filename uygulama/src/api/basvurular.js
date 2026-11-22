@@ -20,13 +20,17 @@ function basvuruyuDonustur(satir) {
           })),
         }
       : null,
-    proje: satir.project ? { id: satir.project.id, baslik: satir.project.title, durum: satir.project.status } : null,
+    proje: satir.project
+      ? { id: satir.project.id, baslik: satir.project.title, durum: satir.project.status }
+      : null,
   };
 }
 
 export async function basvuruGonder(projeId, ogrenciId, mesaj) {
   sonuc(
-    await supabase.from("applications").insert({ project_id: projeId, student_id: ogrenciId, message: mesaj }),
+    await supabase
+      .from("applications")
+      .insert({ project_id: projeId, student_id: ogrenciId, message: mesaj }),
   );
 }
 

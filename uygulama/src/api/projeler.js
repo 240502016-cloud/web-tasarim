@@ -20,7 +20,9 @@ export function projeyiDonustur(satir) {
       bolum: u.profile?.department ?? null,
       sinif: u.profile?.class_year ?? null,
     }))
-    .sort((a, b) => (a.rol === "leader" ? -1 : b.rol === "leader" ? 1 : a.katilma.localeCompare(b.katilma)));
+    .sort((a, b) =>
+      a.rol === "leader" ? -1 : b.rol === "leader" ? 1 : a.katilma.localeCompare(b.katilma),
+    );
 
   return {
     id: satir.id,
@@ -32,8 +34,12 @@ export function projeyiDonustur(satir) {
     olusturulma: satir.created_at,
     sahipId: satir.owner_id,
     mentorId: satir.mentor_id,
-    sahip: satir.owner ? { id: satir.owner.id, adSoyad: satir.owner.full_name, bolum: satir.owner.department } : null,
-    mentor: satir.mentor ? { id: satir.mentor.id, adSoyad: satir.mentor.full_name, unvan: satir.mentor.title } : null,
+    sahip: satir.owner
+      ? { id: satir.owner.id, adSoyad: satir.owner.full_name, bolum: satir.owner.department }
+      : null,
+    mentor: satir.mentor
+      ? { id: satir.mentor.id, adSoyad: satir.mentor.full_name, unvan: satir.mentor.title }
+      : null,
     beceriler: (satir.project_skills ?? [])
       .map((ps) => ({ id: ps.skills.id, ad: ps.skills.name }))
       .sort((a, b) => a.ad.localeCompare(b.ad, "tr")),
@@ -44,7 +50,10 @@ export function projeyiDonustur(satir) {
 
 export async function projeleriGetir() {
   const satirlar = sonuc(
-    await supabase.from("projects").select(LISTE_ALANLARI).order("created_at", { ascending: false }),
+    await supabase
+      .from("projects")
+      .select(LISTE_ALANLARI)
+      .order("created_at", { ascending: false }),
   );
   return satirlar.map(projeyiDonustur);
 }
@@ -53,7 +62,9 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export async function projeGetir(id) {
   if (!UUID.test(id)) throw new Error("Proje bulunamadı.");
-  const satir = sonuc(await supabase.from("projects").select(LISTE_ALANLARI).eq("id", id).maybeSingle());
+  const satir = sonuc(
+    await supabase.from("projects").select(LISTE_ALANLARI).eq("id", id).maybeSingle(),
+  );
   if (!satir) throw new Error("Proje bulunamadı.");
   return projeyiDonustur(satir);
 }
@@ -68,7 +79,11 @@ export async function kullanicininProjeleri(kullaniciId) {
     ? `id.in.(${idler.join(",")}),mentor_id.eq.${kullaniciId}`
     : `mentor_id.eq.${kullaniciId}`;
   const satirlar = sonuc(
-    await supabase.from("projects").select(LISTE_ALANLARI).or(filtre).order("created_at", { ascending: false }),
+    await supabase
+      .from("projects")
+      .select(LISTE_ALANLARI)
+      .or(filtre)
+      .order("created_at", { ascending: false }),
   );
   return satirlar.map(projeyiDonustur);
 }
@@ -98,7 +113,9 @@ function enAzBirSatir(satirlar) {
 }
 
 export async function projeDurumuDegistir(id, durum) {
-  enAzBirSatir(sonuc(await supabase.from("projects").update({ status: durum }).eq("id", id).select("id")));
+  enAzBirSatir(
+    sonuc(await supabase.from("projects").update({ status: durum }).eq("id", id).select("id")),
+  );
 }
 
 export async function projeSil(id) {

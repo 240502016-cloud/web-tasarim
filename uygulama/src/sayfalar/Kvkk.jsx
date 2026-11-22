@@ -10,23 +10,23 @@ export default function Kvkk() {
         <h2>Hangi verileri işliyoruz?</h2>
         <p>
           Ad soyad, e-posta adresi, bölüm ve sınıf bilgisi, mentörler için unvan, uzmanlık alanı ve
-          deneyim süresi; profilinize eklediğiniz beceriler, oluşturduğunuz projeler, başvurularınız,
-          proje ekibi içindeki mesajlarınız ve planlanan görüşmeler.
+          deneyim süresi; profilinize eklediğiniz beceriler, oluşturduğunuz projeler,
+          başvurularınız, proje ekibi içindeki mesajlarınız ve planlanan görüşmeler.
         </p>
 
         <h2>Neden işliyoruz?</h2>
         <p>
           Öğrencileri becerilerine uygun projelerle ve mentörlerle eşleştirmek, başvuru ve mentörlük
-          süreçlerini yürütmek, proje ekiplerinin iletişim kurmasını sağlamak ve platformun güvenliğini
-          korumak için.
+          süreçlerini yürütmek, proje ekiplerinin iletişim kurmasını sağlamak ve platformun
+          güvenliğini korumak için.
         </p>
 
         <h2>Kimlerle paylaşıyoruz?</h2>
         <p>
           Profil bilgileriniz ve becerileriniz platformdaki diğer kullanıcılara gösterilir. E-posta
-          adresiniz diğer kullanıcılarla paylaşılmaz. Ekip mesajlarını yalnızca o projenin üyeleri ve
-          mentörü görebilir. Veriler, barındırma hizmeti aldığımız altyapı sağlayıcılarının (Supabase,
-          Vercel) sunucularında saklanır.
+          adresiniz diğer kullanıcılarla paylaşılmaz. Ekip mesajlarını yalnızca o projenin üyeleri
+          ve mentörü görebilir. Veriler, barındırma hizmeti aldığımız altyapı sağlayıcılarının
+          (Supabase, Vercel) sunucularında saklanır.
         </p>
 
         <h2>Haklarınız</h2>

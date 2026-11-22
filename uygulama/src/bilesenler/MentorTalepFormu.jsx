@@ -23,7 +23,11 @@ export default function MentorTalepFormu({ mentor, profil, onerilenProjeId }) {
 
   if (projeler.isPending) return null;
   if (gonderildi) {
-    return <p className="bilgi-kutusu ust-bosluk">Talebin gönderildi. Mentör yanıtladığında bildirim alacaksın.</p>;
+    return (
+      <p className="bilgi-kutusu ust-bosluk">
+        Talebin gönderildi. Mentör yanıtladığında bildirim alacaksın.
+      </p>
+    );
   }
   if (mentor.aktifProje >= mentor.kapasite) {
     return <p className="soluk ust-bosluk">Bu mentörün kapasitesi şu an dolu.</p>;
@@ -41,7 +45,10 @@ export default function MentorTalepFormu({ mentor, profil, onerilenProjeId }) {
 
   async function gonder(e) {
     e.preventDefault();
-    const tamam = await calistir(() => talepGonder(projeId, mentor.id, mesaj.trim()), "Mentörlük talebi gönderildi.");
+    const tamam = await calistir(
+      () => talepGonder(projeId, mentor.id, mesaj.trim()),
+      "Mentörlük talebi gönderildi.",
+    );
     if (tamam) setGonderildi(true);
   }
 
@@ -49,7 +56,12 @@ export default function MentorTalepFormu({ mentor, profil, onerilenProjeId }) {
     <form className="form ayrik-form" onSubmit={gonder}>
       <h2>Mentörlük Talebi Gönder</h2>
       <label htmlFor="talep-proje">Hangi projen için?</label>
-      <select id="talep-proje" required value={projeId} onChange={(e) => setProjeId(e.target.value)}>
+      <select
+        id="talep-proje"
+        required
+        value={projeId}
+        onChange={(e) => setProjeId(e.target.value)}
+      >
         <option value="">Seçiniz</option>
         {uygunlar.map((p) => (
           <option key={p.id} value={p.id}>

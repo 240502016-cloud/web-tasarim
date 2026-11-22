@@ -63,7 +63,10 @@ export default function BasvuruListesi({ proje }) {
                   disabled={calisiyor || dolu}
                   title={dolu ? "Takım dolu" : undefined}
                   onClick={() =>
-                    calistir(() => basvuruDurumuDegistir(b.id, "accepted"), `${b.ogrenci.adSoyad} takıma eklendi.`)
+                    calistir(
+                      () => basvuruDurumuDegistir(b.id, "accepted"),
+                      `${b.ogrenci.adSoyad} takıma eklendi.`,
+                    )
                   }
                 >
                   Kabul Et
@@ -72,7 +75,9 @@ export default function BasvuruListesi({ proje }) {
                   type="button"
                   className="buton buton-kucuk buton-cizgili"
                   disabled={calisiyor}
-                  onClick={() => calistir(() => basvuruDurumuDegistir(b.id, "rejected"), "Başvuru reddedildi.")}
+                  onClick={() =>
+                    calistir(() => basvuruDurumuDegistir(b.id, "rejected"), "Başvuru reddedildi.")
+                  }
                 >
                   Reddet
                 </button>

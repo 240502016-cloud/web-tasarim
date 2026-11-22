@@ -43,6 +43,7 @@ export default function UstMenu() {
           <NavLink to="/mentorler">Mentörler</NavLink>
           {kullanici ? (
             <>
+              {profil?.rol === "admin" && <NavLink to="/yonetim">Yönetim</NavLink>}
               <NavLink to="/panelim">Panelim</NavLink>
               <BildirimZili kullaniciId={kullanici.id} />
               <NavLink to="/profil">Profilim</NavLink>

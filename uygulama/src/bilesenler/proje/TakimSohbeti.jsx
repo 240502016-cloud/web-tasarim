@@ -5,6 +5,7 @@ import { tr } from "date-fns/locale";
 import toast from "react-hot-toast";
 import { mesajGonder, mesajiDonustur, mesajlariDinle, mesajlariGetir } from "../../api/mesajlar";
 import { Yukleniyor } from "../Durumlar";
+import SikayetDugmesi from "../SikayetDugmesi";
 
 // Proje ekibinin (üyeler + mentör) anlık mesajlaştığı alan (FR-25)
 export default function TakimSohbeti({ proje, profil }) {
@@ -51,11 +52,15 @@ export default function TakimSohbeti({ proje, profil }) {
   return (
     <section className="bolum" aria-labelledby="sohbet-baslik">
       <h2 id="sohbet-baslik">Takım Sohbeti</h2>
-      <p className="soluk kucuk-yazi">Mesajları yalnızca takım üyeleri ve projenin mentörü görebilir.</p>
+      <p className="soluk kucuk-yazi">
+        Mesajları yalnızca takım üyeleri ve projenin mentörü görebilir.
+      </p>
 
       <div className="sohbet" ref={listeRef} aria-live="polite">
         {mesajlar.isPending && <Yukleniyor />}
-        {mesajlar.data?.length === 0 && <p className="soluk">Henüz mesaj yok. İlk mesajı sen yaz!</p>}
+        {mesajlar.data?.length === 0 && (
+          <p className="soluk">Henüz mesaj yok. İlk mesajı sen yaz!</p>
+        )}
         {mesajlar.data?.map((m) => {
           const benim = m.gonderenId === profil.id;
           const tarih = new Date(m.tarih);
@@ -66,6 +71,7 @@ export default function TakimSohbeti({ proje, profil }) {
               <time dateTime={m.tarih}>
                 {format(tarih, isToday(tarih) ? "HH:mm" : "d MMM HH:mm", { locale: tr })}
               </time>
+              {!benim && <SikayetDugmesi profil={profil} tur="message" hedefId={m.id} />}
             </div>
           );
         })}

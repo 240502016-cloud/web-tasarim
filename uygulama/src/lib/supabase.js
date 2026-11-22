@@ -23,9 +23,15 @@ export function hataMetni(hata) {
     [/Invalid login credentials/i, "E-posta veya şifre hatalı."],
     [/Email not confirmed/i, "Giriş yapmadan önce e-posta adresini doğrulaman gerekiyor."],
     [/User already registered/i, "Bu e-posta adresiyle zaten bir hesap var."],
-    [/Password should|weak password/i, "Şifre çok zayıf: en az 8 karakter, harf ve rakam içermeli."],
+    [
+      /Password should|weak password/i,
+      "Şifre çok zayıf: en az 8 karakter, harf ve rakam içermeli.",
+    ],
     [/rate limit|too many requests/i, "Çok fazla deneme yapıldı. Lütfen biraz sonra tekrar dene."],
-    [/Database error saving new user/i, "Kayıt tamamlanamadı. Öğrenciysen .edu.tr uzantılı e-posta kullandığından emin ol."],
+    [
+      /Database error saving new user/i,
+      "Kayıt tamamlanamadı. Öğrenciysen .edu.tr uzantılı e-posta kullandığından emin ol.",
+    ],
     [/Failed to fetch|NetworkError/i, "Sunucuya bağlanılamadı. İnternet bağlantını kontrol et."],
     [/duplicate key/i, "Bu kayıt zaten var."],
     [/row-level security|permission denied/i, "Bu işlem için yetkin yok."],

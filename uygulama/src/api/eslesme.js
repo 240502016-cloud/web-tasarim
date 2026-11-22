@@ -16,7 +16,13 @@ export async function onerilenProjeler() {
   if (!oneriler.length) return [];
 
   const projeler = sonuc(
-    await supabase.from("projects").select(LISTE_ALANLARI).in("id", oneriler.map((o) => o.project_id)),
+    await supabase
+      .from("projects")
+      .select(LISTE_ALANLARI)
+      .in(
+        "id",
+        oneriler.map((o) => o.project_id),
+      ),
   ).map(projeyiDonustur);
 
   return oneriler
@@ -25,23 +31,27 @@ export async function onerilenProjeler() {
 }
 
 export async function mentorOnerileri(projeId) {
-  return sonuc(await supabase.rpc("match_mentors_for_project", { p_project: projeId })).map((m) => ({
-    id: m.mentor_id,
-    adSoyad: m.full_name,
-    unvan: m.title,
-    uzmanlik: m.expertise,
-    aktifProje: m.active_projects,
-    kapasite: m.mentor_capacity,
-    ...aciklama(m),
-  }));
+  return sonuc(await supabase.rpc("match_mentors_for_project", { p_project: projeId })).map(
+    (m) => ({
+      id: m.mentor_id,
+      adSoyad: m.full_name,
+      unvan: m.title,
+      uzmanlik: m.expertise,
+      aktifProje: m.active_projects,
+      kapasite: m.mentor_capacity,
+      ...aciklama(m),
+    }),
+  );
 }
 
 export async function ogrenciOnerileri(projeId) {
-  return sonuc(await supabase.rpc("match_students_for_project", { p_project: projeId })).map((o) => ({
-    id: o.student_id,
-    adSoyad: o.full_name,
-    bolum: o.department,
-    sinif: o.class_year,
-    ...aciklama(o),
-  }));
+  return sonuc(await supabase.rpc("match_students_for_project", { p_project: projeId })).map(
+    (o) => ({
+      id: o.student_id,
+      adSoyad: o.full_name,
+      bolum: o.department,
+      sinif: o.class_year,
+      ...aciklama(o),
+    }),
+  );
 }

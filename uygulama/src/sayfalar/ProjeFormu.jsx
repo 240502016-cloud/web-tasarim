@@ -78,12 +78,27 @@ function Form({ proje, tumBeceriler }) {
             etiket="Takım büyüklüğü (sen dahil)"
             hata={errors.takimBuyuklugu}
           >
-            <input type="number" min="2" max="10" {...register("takimBuyuklugu", { valueAsNumber: true })} />
+            <input
+              type="number"
+              min="2"
+              max="10"
+              {...register("takimBuyuklugu", { valueAsNumber: true })}
+            />
           </FormAlani>
         </div>
         <div>
-          <FormAlani id="sureHafta" etiket="Tahmini süre (hafta)" hata={errors.sureHafta} ipucu="İsteğe bağlı">
-            <input type="number" min="1" max="52" {...register("sureHafta", { valueAsNumber: true })} />
+          <FormAlani
+            id="sureHafta"
+            etiket="Tahmini süre (hafta)"
+            hata={errors.sureHafta}
+            ipucu="İsteğe bağlı"
+          >
+            <input
+              type="number"
+              min="1"
+              max="52"
+              {...register("sureHafta", { valueAsNumber: true })}
+            />
           </FormAlani>
         </div>
       </div>
@@ -118,15 +133,28 @@ export default function ProjeFormu() {
   const { id } = useParams();
   const { profil } = useOturum();
   const tumBeceriler = useQuery({ queryKey: ["beceriler"], queryFn: becerileriGetir });
-  const proje = useQuery({ queryKey: ["proje", id], queryFn: () => projeGetir(id), enabled: Boolean(id) });
+  const proje = useQuery({
+    queryKey: ["proje", id],
+    queryFn: () => projeGetir(id),
+    enabled: Boolean(id),
+  });
 
-  const aktif = profil && !profil.askida && (profil.rol !== "mentor" || profil.mentorDurumu === "approved");
+  const aktif =
+    profil && !profil.askida && (profil.rol !== "mentor" || profil.mentorDurumu === "approved");
 
   if (tumBeceriler.isPending || (id && proje.isPending)) {
-    return <div className="kapsayici"><Yukleniyor /></div>;
+    return (
+      <div className="kapsayici">
+        <Yukleniyor />
+      </div>
+    );
   }
   if (tumBeceriler.isError || proje.isError) {
-    return <div className="kapsayici"><HataMesaji hata={tumBeceriler.error ?? proje.error} /></div>;
+    return (
+      <div className="kapsayici">
+        <HataMesaji hata={tumBeceriler.error ?? proje.error} />
+      </div>
+    );
   }
   if (id && proje.data.sahipId !== profil?.id && profil?.rol !== "admin") {
     return <Navigate to={`/projeler/${id}`} replace />;

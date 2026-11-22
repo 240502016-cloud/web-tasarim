@@ -28,7 +28,9 @@ export function profiliDonustur(satir) {
 const PROFIL_ALANLARI = "*, profile_skills(level, skills(id, name))";
 
 export async function profilGetir(id) {
-  const satir = sonuc(await supabase.from("profiles").select(PROFIL_ALANLARI).eq("id", id).maybeSingle());
+  const satir = sonuc(
+    await supabase.from("profiles").select(PROFIL_ALANLARI).eq("id", id).maybeSingle(),
+  );
   return profiliDonustur(satir);
 }
 

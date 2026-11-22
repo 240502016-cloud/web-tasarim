@@ -29,7 +29,12 @@ export default function MentorTalepleri({ proje }) {
   return (
     <div className="ust-bosluk">
       {proje.mentor && (
-        <button type="button" className="metin-dugmesi tehlike" onClick={cikar} disabled={calisiyor}>
+        <button
+          type="button"
+          className="metin-dugmesi tehlike"
+          onClick={cikar}
+          disabled={calisiyor}
+        >
           Mentörü projeden çıkar
         </button>
       )}

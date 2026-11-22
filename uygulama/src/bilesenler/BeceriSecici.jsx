@@ -4,7 +4,13 @@ const SEVIYE_ADLARI = ["", "Başlangıç", "Temel", "Orta", "İyi", "Uzman"];
 
 // Beceri listesinden seçim yapıp her birine 1-5 arası seviye verilen alan.
 // seviyeli=false ise (proje becerileri) yalnızca beceri seçilir.
-export default function BeceriSecici({ tumBeceriler, secili, onChange, seviyeli = true, id = "beceri" }) {
+export default function BeceriSecici({
+  tumBeceriler,
+  secili,
+  onChange,
+  seviyeli = true,
+  id = "beceri",
+}) {
   const [yeniBeceri, setYeniBeceri] = useState("");
   const [yeniSeviye, setYeniSeviye] = useState(3);
 
@@ -64,7 +70,9 @@ export default function BeceriSecici({ tumBeceriler, secili, onChange, seviyeli 
                   aria-label={`${b.ad} seviyesi`}
                   onChange={(e) =>
                     onChange(
-                      secili.map((s) => (s.id === b.id ? { ...s, seviye: Number(e.target.value) } : s)),
+                      secili.map((s) =>
+                        s.id === b.id ? { ...s, seviye: Number(e.target.value) } : s,
+                      ),
                     )
                   }
                 >

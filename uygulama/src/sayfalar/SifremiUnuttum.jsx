@@ -32,8 +32,8 @@ export default function SifremiUnuttum() {
       <div className="panel">
         {durum === "gonderildi" ? (
           <p role="status">
-            Bu adrese kayıtlı bir hesap varsa şifre yenileme bağlantısı gönderildi. Gelen kutunu
-            (ve gereksiz klasörünü) kontrol et.
+            Bu adrese kayıtlı bir hesap varsa şifre yenileme bağlantısı gönderildi. Gelen kutunu (ve
+            gereksiz klasörünü) kontrol et.
           </p>
         ) : (
           <form className="form" onSubmit={gonder}>
@@ -51,7 +51,11 @@ export default function SifremiUnuttum() {
               value={eposta}
               onChange={(e) => setEposta(e.target.value)}
             />
-            <button type="submit" className="buton buton-tam ust-bosluk" disabled={durum === "gonderiliyor"}>
+            <button
+              type="submit"
+              className="buton buton-tam ust-bosluk"
+              disabled={durum === "gonderiliyor"}
+            >
               Bağlantı Gönder
             </button>
           </form>

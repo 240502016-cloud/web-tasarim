@@ -14,6 +14,7 @@ import Gorusmeler from "../bilesenler/proje/Gorusmeler";
 import TakimSohbeti from "../bilesenler/proje/TakimSohbeti";
 import { DURUM_SINIFI, DURUM_YAZISI, basHarfler } from "../lib/metin";
 import { useIslem } from "../lib/useIslem";
+import SikayetDugmesi from "../bilesenler/SikayetDugmesi";
 
 export default function ProjeDetay() {
   const { id } = useParams();
@@ -22,8 +23,18 @@ export default function ProjeDetay() {
   const { calistir, calisiyor } = useIslem();
   const sorgu = useQuery({ queryKey: ["proje", id], queryFn: () => projeGetir(id) });
 
-  if (sorgu.isPending) return <div className="kapsayici"><Yukleniyor /></div>;
-  if (sorgu.isError) return <div className="kapsayici"><HataMesaji hata={sorgu.error} /></div>;
+  if (sorgu.isPending)
+    return (
+      <div className="kapsayici">
+        <Yukleniyor />
+      </div>
+    );
+  if (sorgu.isError)
+    return (
+      <div className="kapsayici">
+        <HataMesaji hata={sorgu.error} />
+      </div>
+    );
 
   const proje = sorgu.data;
   const bosYer = Math.max(0, proje.takimBuyuklugu - proje.uyeSayisi);
@@ -42,7 +53,8 @@ export default function ProjeDetay() {
 
   async function ayril() {
     if (!window.confirm("Bu projeden ayrılmak istediğine emin misin?")) return;
-    if (await calistir(() => uyeCikar(proje.id, profil.id), "Projeden ayrıldın.")) navigate("/panelim");
+    if (await calistir(() => uyeCikar(proje.id, profil.id), "Projeden ayrıldın."))
+      navigate("/panelim");
   }
 
   return (
@@ -164,7 +176,9 @@ export default function ProjeDetay() {
             />
           )}
           {sahip && proje.durum === "open" && bosYer > 0 && <OgrenciOnerileri proje={proje} />}
-          {ekipte && <Gorusmeler proje={proje} profil={profil} planlayabilir={sahip || projeMentoru} />}
+          {ekipte && (
+            <Gorusmeler proje={proje} profil={profil} planlayabilir={sahip || projeMentoru} />
+          )}
           {ekipte && <TakimSohbeti proje={proje} profil={profil} />}
         </article>
 
@@ -192,10 +206,20 @@ export default function ProjeDetay() {
 
           {sahip && <ProjeYonetimi proje={proje} />}
           {ogrenci && !sahip && !uye && <BasvuruKutusu proje={proje} profil={profil} />}
+          {profil && !sahip && (
+            <div className="ust-bosluk">
+              <SikayetDugmesi profil={profil} tur="project" hedefId={proje.id} />
+            </div>
+          )}
           {uye && (
             <div className="ayrik-form">
               <p>Bu projenin takımındasın.</p>
-              <button type="button" className="metin-dugmesi tehlike" onClick={ayril} disabled={calisiyor}>
+              <button
+                type="button"
+                className="metin-dugmesi tehlike"
+                onClick={ayril}
+                disabled={calisiyor}
+              >
                 Projeden ayrıl
               </button>
             </div>

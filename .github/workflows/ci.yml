@@ -1,0 +1,30 @@
+# Her push ve pull request'te uygulamanın derlendiğini ve testlerin geçtiğini kontrol eder (NFR-15)
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  uygulama:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: uygulama
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: uygulama/package-lock.json
+      - run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Arayüz testleri
+        run: npm test
+      - name: Veritabanı testleri (RLS, tetikleyiciler, eşleştirme)
+        run: npm run test:db
+      - name: Derleme
+        run: npm run build

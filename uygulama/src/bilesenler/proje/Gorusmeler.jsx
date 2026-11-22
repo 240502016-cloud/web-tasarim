@@ -27,7 +27,8 @@ export default function Gorusmeler({ proje, profil, planlayabilir }) {
   function alan(ad) {
     return {
       value: form[ad],
-      onChange: (e) => setForm({ ...form, [ad]: ad === "sureDk" ? Number(e.target.value) : e.target.value }),
+      onChange: (e) =>
+        setForm({ ...form, [ad]: ad === "sureDk" ? Number(e.target.value) : e.target.value }),
     };
   }
 
@@ -55,7 +56,9 @@ export default function Gorusmeler({ proje, profil, planlayabilir }) {
     <section className="bolum" aria-labelledby="gorusmeler-baslik">
       <h2 id="gorusmeler-baslik">Görüşmeler</h2>
       {gorusmeler.isPending && <Yukleniyor />}
-      {gorusmeler.isSuccess && liste.length === 0 && <p className="soluk">Planlanmış görüşme yok.</p>}
+      {gorusmeler.isSuccess && liste.length === 0 && (
+        <p className="soluk">Planlanmış görüşme yok.</p>
+      )}
 
       <ul className="gorusme-listesi">
         {liste.map((g) => {
@@ -63,13 +66,20 @@ export default function Gorusmeler({ proje, profil, planlayabilir }) {
           return (
             <li key={g.id} className={gecti ? "gecmis" : undefined}>
               <div className="esnek-buyu">
-                <strong>{format(new Date(g.baslangic), "d MMMM yyyy, EEEE HH:mm", { locale: tr })}</strong>
+                <strong>
+                  {format(new Date(g.baslangic), "d MMMM yyyy, EEEE HH:mm", { locale: tr })}
+                </strong>
                 <small className="soluk">
                   {g.sureDk} dakika{gecti && " · tamamlandı"}
                 </small>
                 {g.not && <p className="metin-satirlari">{g.not}</p>}
                 {g.baglanti && !gecti && (
-                  <a href={g.baglanti} target="_blank" rel="noopener noreferrer" className="icerik-linki">
+                  <a
+                    href={g.baglanti}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="icerik-linki"
+                  >
                     Görüşmeye katıl
                   </a>
                 )}
@@ -117,7 +127,12 @@ export default function Gorusmeler({ proje, profil, planlayabilir }) {
             <label htmlFor="g-baglanti">
               Görüşme bağlantısı <span className="soluk">(Meet, Zoom vb.)</span>
             </label>
-            <input id="g-baglanti" type="url" placeholder="https://meet.google.com/..." {...alan("baglanti")} />
+            <input
+              id="g-baglanti"
+              type="url"
+              placeholder="https://meet.google.com/..."
+              {...alan("baglanti")}
+            />
             <label htmlFor="g-not">
               Gündem <span className="soluk">(isteğe bağlı)</span>
             </label>

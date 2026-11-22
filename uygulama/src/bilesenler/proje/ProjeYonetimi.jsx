@@ -11,7 +11,11 @@ export default function ProjeYonetimi({ proje }) {
   const [durum, setDurum] = useState(proje.durum);
 
   async function sil() {
-    if (!window.confirm(`"${proje.baslik}" projesi, başvuruları ve mesajlarıyla birlikte kalıcı olarak silinecek. Emin misin?`)) {
+    if (
+      !window.confirm(
+        `"${proje.baslik}" projesi, başvuruları ve mesajlarıyla birlikte kalıcı olarak silinecek. Emin misin?`,
+      )
+    ) {
       return;
     }
     if (await calistir(() => projeSil(proje.id), "Proje silindi.")) navigate("/panelim");
@@ -38,7 +42,9 @@ export default function ProjeYonetimi({ proje }) {
             type="button"
             className="buton buton-kucuk"
             disabled={calisiyor || durum === proje.durum}
-            onClick={() => calistir(() => projeDurumuDegistir(proje.id, durum), "Proje durumu güncellendi.")}
+            onClick={() =>
+              calistir(() => projeDurumuDegistir(proje.id, durum), "Proje durumu güncellendi.")
+            }
           >
             Kaydet
           </button>
@@ -46,7 +52,12 @@ export default function ProjeYonetimi({ proje }) {
         <small className="ipucu">"Açık" dışındaki durumlarda yeni başvuru alınmaz.</small>
       </div>
 
-      <button type="button" className="metin-dugmesi tehlike ust-bosluk" onClick={sil} disabled={calisiyor}>
+      <button
+        type="button"
+        className="metin-dugmesi tehlike ust-bosluk"
+        onClick={sil}
+        disabled={calisiyor}
+      >
         Projeyi sil
       </button>
     </div>

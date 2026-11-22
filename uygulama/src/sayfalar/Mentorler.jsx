@@ -24,7 +24,10 @@ export default function Mentorler() {
           <h1>Mentörler</h1>
         </div>
         <p className="bilgi-kutusu">
-          Mentör profillerini görmek için <Link to="/giris" state={{ geri: "/mentorler" }}>giriş yap</Link>{" "}
+          Mentör profillerini görmek için{" "}
+          <Link to="/giris" state={{ geri: "/mentorler" }}>
+            giriş yap
+          </Link>{" "}
           ya da <Link to="/kayit">kayıt ol</Link>.
         </p>
       </div>
@@ -37,7 +40,9 @@ export default function Mentorler() {
     <div className="kapsayici">
       <div className="sayfa-baslik">
         <h1>Mentörler</h1>
-        <p>Projene yol gösterecek deneyimli bir mentör bul. Mentörlük talebini proje lideri gönderir.</p>
+        <p>
+          Projene yol gösterecek deneyimli bir mentör bul. Mentörlük talebini proje lideri gönderir.
+        </p>
       </div>
 
       <div className="liste-ust">
@@ -56,7 +61,9 @@ export default function Mentorler() {
 
       {mentorler.isPending && <Yukleniyor />}
       {mentorler.isError && <HataMesaji hata={mentorler.error} />}
-      {mentorler.isSuccess && liste.length === 0 && <BosDurum>Bu alanda henüz mentör yok.</BosDurum>}
+      {mentorler.isSuccess && liste.length === 0 && (
+        <BosDurum>Bu alanda henüz mentör yok.</BosDurum>
+      )}
 
       <h2 className="ekran-okuyucu">Mentör listesi</h2>
       <div className="izgara">

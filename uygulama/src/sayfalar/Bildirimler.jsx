@@ -18,7 +18,9 @@ export default function Bildirimler() {
       <div className="sayfa-baslik baslik-satiri">
         <div>
           <h1>Bildirimler</h1>
-          <p>{okunmamis ? `${okunmamis} okunmamış bildirimin var.` : "Tüm bildirimlerini okudun."}</p>
+          <p>
+            {okunmamis ? `${okunmamis} okunmamış bildirimin var.` : "Tüm bildirimlerini okudun."}
+          </p>
         </div>
         {okunmamis > 0 && (
           <button
