@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yazılım Mühendisi - Mentör Profili - ProjeEşleştir</title>
+    <link rel="stylesheet" href="css/stil.css">
+</head>
+<body>
+    <header class="ust-menu">
+        <div class="kapsayici ust-menu-ic">
+            <a href="index.html" class="logo">Proje<span>Eşleştir</span></a>
+            <nav class="ana-menu" aria-label="Ana menü">
+                <a href="projeler.html">Projeler</a>
+                <a href="mentorler.html" aria-current="page">Mentörler</a>
+                <a href="giris.html" class="buton buton-kucuk buton-cizgili">Giriş Yap</a>
+                <a href="kayit.html" class="buton buton-kucuk">Kayıt Ol</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="kapsayici">
+        <nav class="konum" aria-label="Bulunduğunuz yer">
+            <a href="mentorler.html">Mentörler</a>
+            <span>/</span>
+            <span>Yazılım Mühendisi</span>
+        </nav>
+
+        <div class="detay-duzeni">
+            <article class="detay-icerik">
+                <div class="profil-ust">
+                    <span class="avatar avatar-buyuk">YM</span>
+                    <div>
+                        <h1>Yazılım Mühendisi</h1>
+                        <p class="alan">Web Geliştirme</p>
+                        <p class="soluk">6 yıl deneyim &middot; Sektör çalışanı</p>
+                    </div>
+                </div>
+
+                <section class="bolum">
+                    <h2>Hakkında</h2>
+                    <p>Altı yıldır web uygulamaları geliştiriyorum. Öğrencilere proje planlama, kod inceleme ve Git ile ekip çalışması konularında destek olmak istiyorum.</p>
+                </section>
+
+                <section class="bolum">
+                    <h2>Uzmanlık Alanları</h2>
+                    <div class="etiketler">
+                        <span>React</span>
+                        <span>JavaScript</span>
+                        <span>HTML / CSS</span>
+                        <span>Git</span>
+                    </div>
+                </section>
+
+                <section class="bolum">
+                    <h2>Mentörlük Yaptığı Projeler</h2>
+                    <ul class="kisi-listesi">
+                        <li>
+                            <span class="avatar">YM</span>
+                            <div>
+                                <strong><a href="proje.html">Yemekhane Menü Uygulaması</a></strong>
+                                <small>Devam ediyor &middot; 4 kişilik takım</small>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </article>
+
+            <aside class="panel yan-kutu">
+                <h2>Mentörlük Kapasitesi</h2>
+                <progress value="1" max="2">1 / 2</progress>
+                <p class="soluk"><strong>1 / 2</strong> proje &middot; 1 yer boş</p>
+
+                <dl class="bilgi-listesi">
+                    <dt>Görüşme sıklığı</dt>
+                    <dd>Haftada 2</dd>
+                    <dt>Görüşme şekli</dt>
+                    <dd>Online</dd>
+                </dl>
+
+                <form class="form" action="#" method="post">
+                    <label for="proje">Hangi projen için?</label>
+                    <select id="proje" name="proje" required>
+                        <option value="">Seçiniz</option>
+                        <option>Kütüphane Doluluk Takibi</option>
+                    </select>
+
+                    <label for="mesaj">Mesajın</label>
+                    <textarea id="mesaj" name="mesaj" rows="4" required minlength="20"
+                              placeholder="Projeni ve hangi konuda desteğe ihtiyacın olduğunu yaz..."></textarea>
+
+                    <p class="ipucu">Mentörlük talebini yalnızca proje lideri gönderebilir.</p>
+                    <button type="submit" class="buton buton-tam">Mentörlük Talebi Gönder</button>
+                </form>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <p>ProjeEşleştir &middot; Öğrenci, Mentör ve Proje Eşleştirme Platformu</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol - ProjeEşleştir</title>
+    <link rel="stylesheet" href="css/stil.css">
+</head>
+<body>
+    <main class="hesap-sayfasi">
+        <section class="tanitim">
+            <a href="index.html" class="logo">Proje<span>Eşleştir</span></a>
+            <h1>Projeni, takımını ve mentörünü bul.</h1>
+            <ul>
+                <li>Becerilerine uygun projeler önerilir</li>
+                <li>Deneyimli mentörlerle görüşme planlarsın</li>
+                <li>Takımınla tek yerden haberleşirsin</li>
+            </ul>
+        </section>
+
+        <section class="form-alani">
+            <h2>Kayıt Ol</h2>
+            <p class="soluk">Zaten hesabın var mı? <a href="giris.html">Giriş yap</a></p>
+
+            <!-- Rol seçimi: JavaScript olmadan, :checked seçicisiyle formlar arasında geçiş -->
+            <input type="radio" name="rol" id="rol-ogrenci" class="gizli-secim" checked>
+            <input type="radio" name="rol" id="rol-mentor" class="gizli-secim">
+            <div class="rol-secici">
+                <label for="rol-ogrenci">Öğrenciyim</label>
+                <label for="rol-mentor">Mentörüm</label>
+            </div>
+
+            <form class="form hesap-formu ogrenci-formu" action="#" method="post">
+                <label for="o-ad">Ad Soyad</label>
+                <input type="text" id="o-ad" name="ad" required minlength="3" autocomplete="name">
+
+                <label for="o-eposta">Üniversite e-postası</label>
+                <input type="email" id="o-eposta" name="eposta" required
+                       pattern=".+@.+\.edu\.tr" autocomplete="email" placeholder="ornek@universite.edu.tr">
+                <small class="ipucu">Yalnızca <strong>.edu.tr</strong> uzantılı adresler kabul edilir.</small>
+
+                <div class="iki-sutun">
+                    <div>
+                        <label for="o-bolum">Bölüm</label>
+                        <select id="o-bolum" name="bolum" required>
+                            <option value="">Seçiniz</option>
+                            <option>Bilgisayar Mühendisliği</option>
+                            <option>Yazılım Mühendisliği</option>
+                            <option>Bilgisayar Programcılığı</option>
+                            <option>Yönetim Bilişim Sistemleri</option>
+                            <option>Diğer</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="o-sinif">Sınıf</label>
+                        <select id="o-sinif" name="sinif" required>
+                            <option value="">Seçiniz</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label for="o-sifre">Şifre</label>
+                <input type="password" id="o-sifre" name="sifre" required minlength="8"
+                       pattern="(?=.*[A-Za-z])(?=.*\d).{8,}" autocomplete="new-password">
+                <small class="ipucu">En az 8 karakter; en az bir harf ve bir rakam içermeli.</small>
+
+                <label class="onay">
+                    <input type="checkbox" name="kvkk" required>
+                    <span><a href="#">KVKK Aydınlatma Metni</a>'ni okudum, kişisel verilerimin işlenmesini kabul ediyorum.</span>
+                </label>
+
+                <button type="submit" class="buton buton-tam">Öğrenci Olarak Kayıt Ol</button>
+            </form>
+
+            <form class="form hesap-formu mentor-formu" action="#" method="post">
+                <label for="m-ad">Ad Soyad</label>
+                <input type="text" id="m-ad" name="ad" required minlength="3" autocomplete="name">
+
+                <label for="m-eposta">E-posta</label>
+                <input type="email" id="m-eposta" name="eposta" required autocomplete="email">
+
+                <label for="m-alan">Uzmanlık alanı</label>
+                <select id="m-alan" name="alan" required>
+                    <option value="">Seçiniz</option>
+                    <option>Web Geliştirme</option>
+                    <option>Mobil Geliştirme</option>
+                    <option>Veri Bilimi / Yapay Zeka</option>
+                    <option>Siber Güvenlik</option>
+                    <option>Gömülü Sistemler</option>
+                </select>
+
+                <div class="iki-sutun">
+                    <div>
+                        <label for="m-deneyim">Deneyim (yıl)</label>
+                        <input type="number" id="m-deneyim" name="deneyim" required min="1" max="50">
+                    </div>
+                    <div>
+                        <label for="m-kapasite">Aynı anda kaç proje?</label>
+                        <input type="number" id="m-kapasite" name="kapasite" required min="1" max="5" value="2">
+                    </div>
+                </div>
+
+                <label for="m-linkedin">LinkedIn profili <span class="soluk">(isteğe bağlı)</span></label>
+                <input type="url" id="m-linkedin" name="linkedin" placeholder="https://www.linkedin.com/in/...">
+
+                <label for="m-sifre">Şifre</label>
+                <input type="password" id="m-sifre" name="sifre" required minlength="8"
+                       pattern="(?=.*[A-Za-z])(?=.*\d).{8,}" autocomplete="new-password">
+                <small class="ipucu">En az 8 karakter; en az bir harf ve bir rakam içermeli.</small>
+
+                <label class="onay">
+                    <input type="checkbox" name="kvkk" required>
+                    <span><a href="#">KVKK Aydınlatma Metni</a>'ni okudum, kişisel verilerimin işlenmesini kabul ediyorum.</span>
+                </label>
+
+                <p class="bilgi-kutusu">Mentör hesapları, kimlik kontrolü için <strong>yönetici onayından sonra</strong> aktif olur.</p>
+
+                <button type="submit" class="buton buton-tam">Mentör Başvurusu Gönder</button>
+            </form>
+        </section>
+    </main>
+    <script>
+        // Ana sayfadaki "Mentör Olarak Katıl" bağlantısı mentör formunu açar
+        if (location.hash === "#mentor") {
+            document.getElementById("rol-mentor").checked = true;
+        }
+    </script>
+</body>
+</html>

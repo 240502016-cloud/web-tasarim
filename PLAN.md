@@ -2,7 +2,11 @@
 
 Dönem projesi: **Öğrenci, Mentör ve Proje Eşleştirme Platformu**
 
-İlk 8 hafta HTML, CSS ve JavaScript ile arayüz prototipi hazırlanır. 9. haftadan itibaren prototip React + Supabase ile çalışan bir uygulamaya dönüştürülür. Her haftanın çalışması `hafta-XX/` klasöründe tutulur.
+İlk 8 hafta HTML, CSS ve JavaScript ile arayüz prototipi hazırlanır. 9. haftadan itibaren prototip React + Supabase ile çalışan bir uygulamaya dönüştürülür.
+
+- `hafta-01/` … `hafta-06/`: haftalık ders çalışmaları
+- `prototip/`: 7. haftada tüm sayfaların ortak stil dosyasıyla birleştirildiği HTML prototipi
+- `uygulama/`: 9. haftadan itibaren geliştirilen React + Supabase uygulaması
 
 | Hafta | Konu | Yapılacaklar | Durum |
 |:-:|---|---|:-:|
@@ -12,7 +16,7 @@ Dönem projesi: **Öğrenci, Mentör ve Proje Eşleştirme Platformu**
 | 4 | HTML formları | Proje detay sayfası ve başvuru formu | ✅ |
 | 5 | Form doğrulama | Kayıt ve giriş sayfaları: rol seçimi, `.edu.tr` e-posta kontrolü, HTML5 doğrulama | ✅ |
 | 6 | JavaScript ve DOM | Proje listesini JavaScript ile oluşturma; arama, beceri filtresi ve "boş yer var" filtresi | ✅ |
-| 7 | Sayfaları birleştirme | Mentör listesi ve mentör profil sayfası; tüm sayfaları ortak stil dosyasıyla tek prototipte birleştirme | ⬜ |
+| 7 | Sayfaları birleştirme | Mentör listesi ve mentör profil sayfası; tüm sayfaları ortak stil dosyasıyla tek prototipte birleştirme | ✅ |
 | 8 | Ara sınav haftası | Prototipin gözden geçirilmesi; duyarlı tasarım ve erişilebilirlik düzeltmeleri | ⬜ |
 | 9 | React'e geçiş | Vite + React kurulumu; sayfaların bileşenlere bölünmesi, `react-router-dom` ile yönlendirme | ⬜ |
 | 10 | Supabase | Veritabanı tabloları, kayıt / giriş (Supabase Auth), RLS politikaları | ⬜ |
