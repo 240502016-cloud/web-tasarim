@@ -1,15 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
-import { projeGetir } from "../api/projeler";
+import { projeGetir, uyeCikar } from "../api/projeler";
 import { useOturum } from "../baglam/OturumBaglami";
 import { HataMesaji, Yukleniyor } from "../bilesenler/Durumlar";
+import BasvuruKutusu from "../bilesenler/proje/BasvuruKutusu";
+import BasvuruListesi from "../bilesenler/proje/BasvuruListesi";
+import ProjeYonetimi from "../bilesenler/proje/ProjeYonetimi";
 import { DURUM_SINIFI, DURUM_YAZISI, basHarfler } from "../lib/metin";
+import { useIslem } from "../lib/useIslem";
 
 export default function ProjeDetay() {
   const { id } = useParams();
-  const { kullanici } = useOturum();
+  const navigate = useNavigate();
+  const { kullanici, profil } = useOturum();
+  const { calistir, calisiyor } = useIslem();
   const sorgu = useQuery({ queryKey: ["proje", id], queryFn: () => projeGetir(id) });
 
   if (sorgu.isPending) return <div className="kapsayici"><Yukleniyor /></div>;
@@ -17,6 +23,21 @@ export default function ProjeDetay() {
 
   const proje = sorgu.data;
   const bosYer = Math.max(0, proje.takimBuyuklugu - proje.uyeSayisi);
+
+  // Giriş yapan kullanıcının bu projedeki rolü
+  const sahip = Boolean(profil) && profil.id === proje.sahipId;
+  const uye = Boolean(profil) && proje.uyeler.some((u) => u.id === profil.id && u.rol === "member");
+  const ogrenci = profil?.rol === "student";
+
+  async function uyeyiCikar(u) {
+    if (!window.confirm(`${u.adSoyad} takımdan çıkarılsın mı?`)) return;
+    await calistir(() => uyeCikar(proje.id, u.id), "Üye takımdan çıkarıldı.");
+  }
+
+  async function ayril() {
+    if (!window.confirm("Bu projeden ayrılmak istediğine emin misin?")) return;
+    if (await calistir(() => uyeCikar(proje.id, profil.id), "Projeden ayrıldın.")) navigate("/panelim");
+  }
 
   return (
     <div className="kapsayici">
@@ -69,7 +90,7 @@ export default function ProjeDetay() {
                   <span className="avatar" aria-hidden="true">
                     {u.adSoyad ? basHarfler(u.adSoyad) : "?"}
                   </span>
-                  <div>
+                  <div className="esnek-buyu">
                     <strong>{u.adSoyad ?? "Takım üyesi"}</strong>
                     <small>
                       {u.rol === "leader" ? "Proje lideri" : "Üye"}
@@ -77,6 +98,16 @@ export default function ProjeDetay() {
                       {u.sinif && `, ${u.sinif}. sınıf`}
                     </small>
                   </div>
+                  {sahip && u.rol === "member" && (
+                    <button
+                      type="button"
+                      className="metin-dugmesi tehlike"
+                      disabled={calisiyor}
+                      onClick={() => uyeyiCikar(u)}
+                    >
+                      Çıkar
+                    </button>
+                  )}
                 </li>
               ))}
               {bosYer > 0 && (
@@ -113,6 +144,8 @@ export default function ProjeDetay() {
               <p className="soluk">Bu projenin henüz mentörü yok.</p>
             )}
           </section>
+
+          {sahip && <BasvuruListesi proje={proje} />}
         </article>
 
         <aside className="panel yan-kutu">
@@ -126,6 +159,7 @@ export default function ProjeDetay() {
             </strong>{" "}
             kişi &middot; {bosYer > 0 ? `${bosYer} yer boş` : "takım dolu"}
           </p>
+
           {!kullanici && (
             <p className="bilgi-kutusu">
               Başvurmak için{" "}
@@ -134,6 +168,17 @@ export default function ProjeDetay() {
               </Link>
               .
             </p>
+          )}
+
+          {sahip && <ProjeYonetimi proje={proje} />}
+          {ogrenci && !sahip && !uye && <BasvuruKutusu proje={proje} profil={profil} />}
+          {uye && (
+            <div className="ayrik-form">
+              <p>Bu projenin takımındasın.</p>
+              <button type="button" className="metin-dugmesi tehlike" onClick={ayril} disabled={calisiyor}>
+                Projeden ayrıl
+              </button>
+            </div>
           )}
         </aside>
       </div>

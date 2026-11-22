@@ -5,6 +5,8 @@ import { projeleriGetir } from "../api/projeler";
 import ProjeKarti from "../bilesenler/ProjeKarti";
 import { BosDurum, HataMesaji, Yukleniyor } from "../bilesenler/Durumlar";
 import { kucukHarf } from "../lib/metin";
+import { useOturum } from "../baglam/OturumBaglami";
+import { Link } from "react-router-dom";
 
 const SAYFA_BOYUTU = 12;
 
@@ -38,6 +40,7 @@ export function projeleriFiltrele(projeler, { aranan, beceriler, durum, sadeceBo
 
 export default function Projeler() {
   const [parametreler] = useSearchParams();
+  const { profil } = useOturum();
   const projeler = useQuery({ queryKey: ["projeler"], queryFn: projeleriGetir });
 
   const [aranan, setAranan] = useState(parametreler.get("ara") ?? "");
@@ -91,9 +94,16 @@ export default function Projeler() {
 
   return (
     <div className="kapsayici">
-      <div className="sayfa-baslik">
-        <h1>Projeler</h1>
-        <p>Becerilerine uygun bir projeye katıl ya da kendi projeni oluştur.</p>
+      <div className="sayfa-baslik baslik-satiri">
+        <div>
+          <h1>Projeler</h1>
+          <p>Becerilerine uygun bir projeye katıl ya da kendi projeni oluştur.</p>
+        </div>
+        {profil && profil.rol !== "admin" && (
+          <Link to="/projeler/yeni" className="buton">
+            Proje Oluştur
+          </Link>
+        )}
       </div>
 
       <div className="liste-duzeni">

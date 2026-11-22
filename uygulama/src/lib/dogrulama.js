@@ -90,3 +90,33 @@ export const profilSemalari = {
   }),
   admin: z.object({ adSoyad: ortakAlanlar.adSoyad, hakkinda }),
 };
+
+// Boş bırakılan isteğe bağlı sayı alanı (NaN) "yok" sayılır
+const istegeBagliSayi = (en, enFazla) =>
+  z.preprocess((v) => (Number.isNaN(v) || v === "" ? undefined : v), aralik(en, enFazla).optional());
+
+export const projeSemasi = z.object({
+  baslik: z.string().trim().min(5, "Başlık en az 5 karakter olmalı.").max(120, "Başlık en fazla 120 karakter olabilir."),
+  aciklama: z
+    .string()
+    .trim()
+    .min(20, "Açıklama en az 20 karakter olmalı.")
+    .max(4000, "Açıklama en fazla 4000 karakter olabilir."),
+  takimBuyuklugu: aralik(2, 10),
+  sureHafta: istegeBagliSayi(1, 52),
+});
+
+export const basvuruSemasi = z.object({
+  mesaj: z
+    .string()
+    .trim()
+    .min(10, "Mesajın en az 10 karakter olmalı.")
+    .max(1000, "Mesajın en fazla 1000 karakter olabilir."),
+});
+
+export const BASVURU_DURUMU = {
+  pending: "Beklemede",
+  accepted: "Kabul edildi",
+  rejected: "Reddedildi",
+  withdrawn: "Geri çekildi",
+};

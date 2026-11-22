@@ -42,6 +42,7 @@ export default function UstMenu() {
           <NavLink to="/mentorler">Mentörler</NavLink>
           {kullanici ? (
             <>
+              <NavLink to="/panelim">Panelim</NavLink>
               <NavLink to="/profil">Profilim</NavLink>
               <button type="button" className="buton buton-kucuk buton-cizgili" onClick={cikis}>
                 Çıkış

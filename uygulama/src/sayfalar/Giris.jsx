@@ -17,7 +17,7 @@ export default function Giris() {
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(girisSemasi) });
 
-  const geri = konum.state?.geri ?? "/profil";
+  const geri = konum.state?.geri ?? "/panelim";
   if (kullanici) return <Navigate to={geri} replace />;
 
   async function gonder(veri) {

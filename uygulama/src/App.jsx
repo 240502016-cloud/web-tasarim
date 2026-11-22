@@ -11,6 +11,8 @@ import Kayit from "./sayfalar/Kayit";
 import SifremiUnuttum from "./sayfalar/SifremiUnuttum";
 import SifreYenile from "./sayfalar/SifreYenile";
 import Profil from "./sayfalar/Profil";
+import Panelim from "./sayfalar/Panelim";
+import ProjeFormu from "./sayfalar/ProjeFormu";
 import Kvkk from "./sayfalar/Kvkk";
 import Bulunamadi from "./sayfalar/Bulunamadi";
 
@@ -30,6 +32,9 @@ export default function App() {
         <Route element={<KorumaliRota />}>
           <Route path="mentorler/:id" element={<MentorProfil />} />
           <Route path="profil" element={<Profil />} />
+          <Route path="panelim" element={<Panelim />} />
+          <Route path="projeler/yeni" element={<ProjeFormu />} />
+          <Route path="projeler/:id/duzenle" element={<ProjeFormu />} />
         </Route>
 
         <Route path="*" element={<Bulunamadi />} />

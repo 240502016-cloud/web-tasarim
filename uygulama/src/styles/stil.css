@@ -1156,3 +1156,123 @@ button.buton:disabled {
         grid-template-columns: 1fr;
     }
 }
+
+/* Başlık + sağda buton */
+.baslik-satiri {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.bolum-blok.sol > h2 {
+    text-align: left;
+}
+
+.buton-satiri {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.esnek-buyu {
+    flex: 1;
+}
+
+.kucuk-yazi {
+    font-size: 13px;
+}
+
+.rol-etiketi {
+    font-weight: bold;
+    color: var(--ana-renk) !important;
+}
+
+.beceri-ekle.iki-oge {
+    grid-template-columns: 1fr auto;
+}
+
+.sade-liste {
+    margin: 8px 0 0;
+    padding-left: 20px;
+    color: var(--yazi-soluk);
+    font-size: 14px;
+}
+
+details summary {
+    cursor: pointer;
+    color: var(--ana-renk);
+}
+
+/* Başvuru listesi (proje lideri) */
+.basvuru-listesi {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.basvuru {
+    margin-bottom: 12px;
+    padding: 16px;
+    border: 1px solid var(--kenarlik);
+    border-radius: var(--kose);
+}
+
+.basvuru-ust {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.basvuru-ust strong,
+.basvuru-ust small {
+    display: block;
+}
+
+.basvuru p {
+    margin: 8px 0;
+}
+
+.basvuru .etiketler {
+    margin-bottom: 12px;
+}
+
+.etiketler span.etiket-uyan {
+    color: #166534;
+    background-color: #dcfce7;
+    font-weight: bold;
+}
+
+/* Tablo */
+.tablo-kapsayici {
+    overflow-x: auto;
+    background-color: var(--beyaz);
+    border: 1px solid var(--kenarlik);
+    border-radius: var(--kose);
+}
+
+.tablo {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.tablo th,
+.tablo td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--kenarlik);
+    text-align: left;
+}
+
+.tablo th {
+    background-color: var(--arka-plan);
+}
+
+.tablo tr:last-child td {
+    border-bottom: none;
+}
+
+.tablo a {
+    color: var(--ana-renk);
+}

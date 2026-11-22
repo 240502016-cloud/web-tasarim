@@ -72,3 +72,49 @@ export async function kullanicininProjeleri(kullaniciId) {
   );
   return satirlar.map(projeyiDonustur);
 }
+
+// veri: { baslik, aciklama, takimBuyuklugu, sureHafta, beceriIdleri }
+function rpcParametreleri(veri) {
+  return {
+    p_title: veri.baslik,
+    p_description: veri.aciklama,
+    p_team_size: veri.takimBuyuklugu,
+    p_duration_weeks: veri.sureHafta ?? null,
+    p_skill_ids: veri.beceriIdleri,
+  };
+}
+
+export async function projeOlustur(veri) {
+  return sonuc(await supabase.rpc("create_project", rpcParametreleri(veri)));
+}
+
+export async function projeGuncelle(id, veri) {
+  sonuc(await supabase.rpc("update_project", { p_id: id, ...rpcParametreleri(veri) }));
+}
+
+// RLS izin vermediğinde güncelleme/silme hata vermez, sadece 0 satır etkilenir
+function enAzBirSatir(satirlar) {
+  if (!satirlar?.length) throw new Error("Bu işlem için yetkin yok.");
+}
+
+export async function projeDurumuDegistir(id, durum) {
+  enAzBirSatir(sonuc(await supabase.from("projects").update({ status: durum }).eq("id", id).select("id")));
+}
+
+export async function projeSil(id) {
+  enAzBirSatir(sonuc(await supabase.from("projects").delete().eq("id", id).select("id")));
+}
+
+// Üye projeden ayrılır ya da lider üyeyi çıkarır
+export async function uyeCikar(projeId, uyeId) {
+  enAzBirSatir(
+    sonuc(
+      await supabase
+        .from("project_members")
+        .delete()
+        .eq("project_id", projeId)
+        .eq("profile_id", uyeId)
+        .select("profile_id"),
+    ),
+  );
+}
