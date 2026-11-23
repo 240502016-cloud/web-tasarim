@@ -1,0 +1,56 @@
+# pe-web konteynerinin Caddy ayarı. TLS'i Nexus'un Caddy'si yapar; burası düz HTTP.
+{
+	admin off
+	auto_https off
+}
+
+:80 {
+	encode zstd gzip
+
+	header {
+		-Server
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+	}
+
+	handle /saglik {
+		respond "ok" 200
+	}
+
+	# Supabase Auth (GoTrue)
+	handle_path /auth/v1/* {
+		reverse_proxy auth:9999
+	}
+
+	# Supabase REST (PostgREST)
+	handle_path /rest/v1/* {
+		reverse_proxy rest:3000
+	}
+
+	# Supabase Realtime: yalnız websocket açılır, yönetim uçları (/api/tenants vb.) kapalı.
+	# Realtime kiracıyı Host başlığının ilk parçasından okur (realtime-dev).
+	handle /realtime/v1/websocket {
+		rewrite * /socket/websocket?{query}
+		reverse_proxy realtime:4000 {
+			header_up Host realtime-dev.pe-realtime
+			header_up x-api-key {query.apikey}
+			stream_close_delay 5m
+		}
+	}
+	handle /realtime/* {
+		respond 404
+	}
+
+	# React uygulaması (SPA): bilinmeyen yollar index.html'e düşer
+	handle {
+		root * /srv
+		@varliklar path /assets/*
+		header @varliklar Cache-Control "public, max-age=31536000, immutable"
+		@sayfa not path /assets/*
+		header @sayfa Cache-Control "no-cache"
+		try_files {path} /index.html
+		file_server
+	}
+}

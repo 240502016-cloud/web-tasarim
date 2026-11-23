@@ -1,0 +1,16 @@
+
+# web.cekin.gen.tr — ProjeEşleştir. Nexus'un Caddyfile'ının SONUNA eklenir (bkz. deploy/cekin/README.md).
+# Sertifika Nexus ile aynı yöntemle (Cloudflare DNS-01) alınır; her şey pe-web konteynerine gider.
+web.cekin.gen.tr {
+	tls {
+		protocols tls1.2 tls1.3
+		dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+	}
+	header {
+		-Server
+		Strict-Transport-Security "max-age=31536000"
+	}
+	reverse_proxy pe-web:80 {
+		stream_close_delay 5m
+	}
+}
