@@ -102,6 +102,16 @@ export default function ProjeDetay() {
 
           <section className="bolum">
             <h2>Takım</h2>
+            {!kullanici && (
+              <p className="soluk">
+                Takımda {proje.uyeSayisi} kişi var. Kişisel bilgilerin korunması için takım
+                üyelerini yalnızca{" "}
+                <Link to="/giris" state={{ geri: `/projeler/${proje.id}` }}>
+                  giriş yapan
+                </Link>{" "}
+                KOSTÜ öğrencileri ve personeli görebilir.
+              </p>
+            )}
             <ul className="kisi-listesi">
               {proje.uyeler.map((u) => (
                 <li key={u.id}>
@@ -158,6 +168,8 @@ export default function ProjeDetay() {
                   </div>
                 </li>
               </ul>
+            ) : proje.mentorId ? (
+              <p className="soluk">Bu projenin bir mentörü var. Mentörü görmek için giriş yap.</p>
             ) : (
               <p className="soluk">Bu projenin henüz mentörü yok.</p>
             )}

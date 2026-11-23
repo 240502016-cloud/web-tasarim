@@ -6,10 +6,10 @@
 
 | Rol | Yapabildikleri |
 |---|---|
-| **Ziyaretçi** | Projeleri listeler, arar ve filtreler |
-| **Öğrenci** | `.edu.tr` e-postasıyla kayıt olur, becerilerini seviyeleriyle ekler, kendisine **uygunluk puanıyla önerilen** projeleri görür, projeye başvurur, proje açar |
+| **Ziyaretçi** | Projeleri listeler, arar, filtreler ve ayrıntılarını görür; takımdaki kişilerin bilgilerini göremez (yalnız kişi sayısı) |
+| **Öğrenci** | KOSTÜ öğrenci e-postasıyla (`<9 haneli numara>@kocaelisaglik.edu.tr`) kayıt olur, becerilerini seviyeleriyle ekler, kendisine **uygunluk puanıyla önerilen** projeleri görür, projeye başvurur, proje açar |
 | **Proje lideri** | Başvuruları kabul / ret eder, projeye uygun öğrenci ve mentör önerilerini görür, mentörlük talebi gönderir, görüşme planlar |
-| **Mentör** | Yönetici onayından sonra aktif olur, talepleri kapasitesine göre kabul eder, görüşme planlar |
+| **Mentör** | KOSTÜ personel e-postasıyla (`ad.soyad@kocaelisaglik.edu.tr`) kayıt olur, yönetici onayından sonra aktif olur, talepleri kapasitesine göre kabul eder, görüşme planlar |
 | **Ekip** | Proje içinde anlık mesajlaşır, uygulama içi bildirim alır |
 | **Yönetici** | Mentörleri onaylar, şikâyetleri inceler, kullanıcıyı askıya alır, beceri listesini yönetir, istatistikleri görür |
 
@@ -62,10 +62,10 @@ npm run dev
 
 | E-posta | Rol |
 |---|---|
-| `yonetici@demo.edu.tr` | Yönetici |
-| `ayse@ogr.demo.edu.tr`, `mehmet@…`, `zeynep@…`, `can@ogr.demo.edu.tr` | Öğrenci |
-| `deniz@demo-mentor.com`, `selin@demo-mentor.com` | Onaylı mentör |
-| `emre@demo-mentor.com` | Onay bekleyen mentör |
+| `230502900@kocaelisaglik.edu.tr` | Yönetici |
+| `240502901@…` (Ayşe), `250502902@…` (Mehmet), `230502903@…` (Zeynep), `240503904@…` (Can) | Öğrenci |
+| `deniz.sahin@kocaelisaglik.edu.tr`, `selin.aydin@…` | Onaylı mentör |
+| `emre.celik@kocaelisaglik.edu.tr` | Onay bekleyen mentör |
 
 ## Testler
 
@@ -78,6 +78,9 @@ npm run lint
 Veritabanı testleri `supabase/migrations` içindeki SQL dosyalarını, tarayıcı dışında çalışan bir PostgreSQL (PGlite) üzerinde çalıştırır; Docker gerekmez. GitHub Actions her push'ta tüm testleri çalıştırır (`.github/workflows/ci.yml`).
 
 ## Yayına alma (canlı)
+
+> **Şu anki canlı kurulum:** https://web.cekin.gen.tr adresinde çalışıyor. Supabase kendi sunucumuzda Docker ile kurulu, Supabase Cloud ve Vercel kullanılmıyor. Kurulum, güncelleme ve yedek bilgileri: [deploy/cekin/README.md](deploy/cekin/README.md).
+> Aşağıdaki adımlar Supabase Cloud + Vercel ile kurmak isteyenler için seçenek olarak duruyor.
 
 ### 1. Supabase projesi
 
@@ -97,7 +100,7 @@ Veritabanı testleri `supabase/migrations` içindeki SQL dosyalarını, tarayıc
 6. **İlk yöneticiyi ata:** Kendi hesabınla kayıt ol, sonra **SQL Editor**'de çalıştır:
    ```sql
    update public.profiles set role = 'admin'
-   where id = (select id from auth.users where email = 'senin@universite.edu.tr');
+   where id = (select id from auth.users where email = '24xxxxxxx@kocaelisaglik.edu.tr');
    ```
 
 ### 2. Vercel
@@ -111,7 +114,7 @@ Veritabanı testleri `supabase/migrations` içindeki SQL dosyalarını, tarayıc
 
 ### 3. Yayından sonra kontrol listesi
 
-- [ ] `.edu.tr` adresiyle öğrenci kaydı → doğrulama e-postası geliyor, giriş yapılabiliyor
+- [ ] KOSTÜ öğrenci numarasıyla kayıt → doğrulama e-postası geliyor, giriş yapılabiliyor
 - [ ] Mentör kaydı → yönetim panelinde "Mentör Onayları"nda görünüyor, onaylanınca bildirim gidiyor
 - [ ] Proje oluşturma, başvuru, kabul → takım doluluğu güncelleniyor
 - [ ] İki farklı tarayıcıda aynı projenin sohbetinde mesajlar anında görünüyor (Realtime)
@@ -121,7 +124,7 @@ Veritabanı testleri `supabase/migrations` içindeki SQL dosyalarını, tarayıc
 ## Sunum için demo akışı
 
 1. Ziyaretçi olarak ana sayfa → projeler (arama, filtreler).
-2. `ayse@ogr.demo.edu.tr` ile giriş → **Panelim**: önerilen projeler ve uygunluk puanları, başvurular.
+2. `240502901@kocaelisaglik.edu.tr` (Ayşe) ile giriş → **Panelim**: önerilen projeler ve uygunluk puanları, başvurular.
 3. "Kütüphane Doluluk Takibi" projesinin lideri Ayşe: gelen başvuruyu kabul et, mentör önerilerinden talep gönder.
-4. `deniz@demo-mentor.com` ile giriş: "Yemekhane Menü Uygulaması" sohbeti ve görüşmeleri; gelen talepleri gör.
-5. `yonetici@demo.edu.tr` ile giriş → **Yönetim**: istatistikler, Emre'nin mentörlük onayı.
+4. `deniz.sahin@kocaelisaglik.edu.tr` ile giriş: "Yemekhane Menü Uygulaması" sohbeti ve görüşmeleri; gelen talepleri gör.
+5. `230502900@kocaelisaglik.edu.tr` (yönetici) ile giriş → **Yönetim**: istatistikler, Emre'nin mentörlük onayı.

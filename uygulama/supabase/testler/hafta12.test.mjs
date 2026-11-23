@@ -35,13 +35,17 @@ before(async () => {
   for (const ad of ["HTML / CSS", "JavaScript", "React", "Python", "Yapay Zeka", "Flutter"]) {
     b[ad] = await beceriId(db, ad);
   }
-  lider = await kullaniciEkle(db, "lider@ogr.x.edu.tr", ogrenciMeta("Proje Lideri"));
-  ogrenci = await kullaniciEkle(db, "ogrenci@ogr.x.edu.tr", ogrenciMeta("Elif Arslan"));
-  mentorWeb = await kullaniciEkle(db, "web@ornek.com", mentorMeta("Web Mentör"));
-  mentorVeri = await kullaniciEkle(db, "veri@ornek.com", mentorMeta("Veri Mentör"));
+  lider = await kullaniciEkle(db, "240502106@kocaelisaglik.edu.tr", ogrenciMeta("Proje Lideri"));
+  ogrenci = await kullaniciEkle(db, "240502110@kocaelisaglik.edu.tr", ogrenciMeta("Elif Arslan"));
+  mentorWeb = await kullaniciEkle(db, "web.mentor@kocaelisaglik.edu.tr", mentorMeta("Web Mentör"));
+  mentorVeri = await kullaniciEkle(
+    db,
+    "veri.mentor@kocaelisaglik.edu.tr",
+    mentorMeta("Veri Mentör"),
+  );
   mentorDolu = await kullaniciEkle(
     db,
-    "dolu@ornek.com",
+    "dolu.mentor@kocaelisaglik.edu.tr",
     mentorMeta("Dolu Mentör", { mentor_capacity: 1 }),
   );
   for (const m of [mentorWeb, mentorVeri, mentorDolu]) await mentoruOnayla(db, m);
@@ -139,7 +143,11 @@ test("öneri fonksiyonlarını yalnızca proje lideri çağırabilir", async () 
 });
 
 test("lidere projeye uygun öğrenciler önerilir; başvuranlar ve üyeler hariç", async () => {
-  const yeni = await kullaniciEkle(db, "yeni@ogr.x.edu.tr", ogrenciMeta("Yeni Öğrenci"));
+  const yeni = await kullaniciEkle(
+    db,
+    "240502111@kocaelisaglik.edu.tr",
+    ogrenciMeta("Yeni Öğrenci"),
+  );
   await becerileriAyarla(yeni, [
     ["Python", 3],
     ["Yapay Zeka", 2],

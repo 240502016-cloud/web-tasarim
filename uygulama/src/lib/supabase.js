@@ -30,7 +30,7 @@ export function hataMetni(hata) {
     [/rate limit|too many requests/i, "Çok fazla deneme yapıldı. Lütfen biraz sonra tekrar dene."],
     [
       /Database error saving new user/i,
-      "Kayıt tamamlanamadı. Öğrenciysen .edu.tr uzantılı e-posta kullandığından emin ol.",
+      "Kayıt tamamlanamadı. KOSTÜ e-postanı (öğrenciysen 9 haneli numaranla) doğru yazdığından ve sınıfının numarana uyduğundan emin ol.",
     ],
     [/Failed to fetch|NetworkError/i, "Sunucuya bağlanılamadı. İnternet bağlantını kontrol et."],
     [/duplicate key/i, "Bu kayıt zaten var."],

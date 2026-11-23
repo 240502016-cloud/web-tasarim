@@ -102,10 +102,12 @@ export default function Kayit() {
 
               <FormAlani
                 id="eposta"
-                etiket={rol === "student" ? "Üniversite e-postası" : "E-posta"}
+                etiket={rol === "student" ? "KOSTÜ öğrenci e-postası" : "KOSTÜ personel e-postası"}
                 hata={errors.eposta}
                 ipucu={
-                  rol === "student" ? "Yalnızca .edu.tr uzantılı adresler kabul edilir." : undefined
+                  rol === "student"
+                    ? "Öğrenci numaran + @kocaelisaglik.edu.tr (ör. 24xxxxxxx@kocaelisaglik.edu.tr)"
+                    : "Ör. ad.soyad@kocaelisaglik.edu.tr"
                 }
               >
                 <input type="email" autoComplete="email" {...register("eposta")} />
@@ -140,7 +142,7 @@ export default function Kayit() {
                     id="unvan"
                     etiket="Unvan"
                     hata={errors.unvan}
-                    ipucu="Ör. Yazılım Mühendisi, Öğretim Üyesi"
+                    ipucu="Ör. Öğretim Üyesi, Araştırma Görevlisi"
                   >
                     <input type="text" {...register("unvan")} />
                   </FormAlani>
@@ -198,8 +200,8 @@ export default function Kayit() {
 
               {rol === "mentor" && (
                 <p className="bilgi-kutusu">
-                  Mentör hesapları, kimlik kontrolü için <strong>yönetici onayından sonra</strong>{" "}
-                  aktif olur.
+                  Mentörlük KOSTÜ personeline açıktır. Hesabın, kimlik kontrolü için{" "}
+                  <strong>yönetici onayından sonra</strong> aktif olur.
                 </p>
               )}
 

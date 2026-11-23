@@ -1,22 +1,49 @@
 import { describe, expect, test } from "vitest";
-import { eduTrMi, kayitSemasi, projeSemasi } from "./dogrulama";
+import {
+  azamiSinif,
+  girisSemasi,
+  kayitSemasi,
+  kostuEpostasiMi,
+  ogrenciEpostasiHatasi,
+  personelEpostasiMi,
+  projeSemasi,
+} from "./dogrulama";
 import { projeleriFiltrele } from "./filtre";
 import { basHarfler, kucukHarf } from "./metin";
 import { eslesmeAciklamasi, puanSinifi } from "./eslesme";
 import { bildirimBaglantisi, bildirimMetni } from "./bildirimMetni";
 
 describe("e-posta ve kayıt doğrulama", () => {
-  test(".edu.tr adresleri tanınır", () => {
-    expect(eduTrMi("ayse@ogr.kocaelisaglik.edu.tr")).toBe(true);
-    expect(eduTrMi("ali@itu.edu.tr")).toBe(true);
-    expect(eduTrMi("ali@gmail.com")).toBe(false);
-    expect(eduTrMi("ali@edu.tr.com")).toBe(false);
+  test("yalnız KOSTÜ adresleri tanınır; personel adresi öğrenci numarası olamaz", () => {
+    expect(kostuEpostasiMi("240502016@kocaelisaglik.edu.tr")).toBe(true);
+    expect(kostuEpostasiMi("ali.veli@kocaelisaglik.edu.tr")).toBe(true);
+    expect(kostuEpostasiMi("ali@itu.edu.tr")).toBe(false);
+    expect(kostuEpostasiMi("ali@kocaelisaglik.edu.tr.com")).toBe(false);
+    expect(personelEpostasiMi("ali.veli@kocaelisaglik.edu.tr")).toBe(true);
+    expect(personelEpostasiMi("240502016@kocaelisaglik.edu.tr")).toBe(false);
+  });
+
+  test("öğrenci numarası: 9 hane, geçerli giriş yılı, sıfır olmayan kodlar", () => {
+    const simdi = new Date(2026, 10, 23);
+    const hata = (e) => ogrenciEpostasiHatasi(e, simdi);
+    expect(hata("240502016@kocaelisaglik.edu.tr")).toBeNull();
+    expect(hata("99999999@kocaelisaglik.edu.tr")).toMatch(/9 haneli/);
+    expect(hata("999999999@kocaelisaglik.edu.tr")).toMatch(/giriş yılı/);
+    expect(hata("270502001@kocaelisaglik.edu.tr")).toMatch(/giriş yılı/);
+    expect(hata("240502000@kocaelisaglik.edu.tr")).toMatch(/geçerli bir KOSTÜ/);
+    expect(hata("ali@gmail.com")).toMatch(/KOSTÜ/);
+  });
+
+  test("en yüksek sınıf giriş yılına ve Eylül'de başlayan eğitim yılına göre hesaplanır", () => {
+    expect(azamiSinif("240502016", new Date(2026, 10, 23))).toBe(3);
+    expect(azamiSinif("240502016", new Date(2026, 7, 31))).toBe(2);
+    expect(azamiSinif("260502016", new Date(2026, 7, 1))).toBe(1);
   });
 
   const ogrenci = {
     rol: "student",
     adSoyad: "Ayşe Yılmaz",
-    eposta: "ayse@ogr.x.edu.tr",
+    eposta: "240502016@kocaelisaglik.edu.tr",
     sifre: "guclu123",
     kvkk: true,
     bolum: "Bilgisayar Mühendisliği",
@@ -38,11 +65,11 @@ describe("e-posta ve kayıt doğrulama", () => {
     expect(alanlar).toEqual(["eposta", "kvkk", "sifre"]);
   });
 
-  test("mentör .edu.tr olmadan kayıt olabilir ama deneyim ve kapasite aralıkta olmalı", () => {
+  test("mentör KOSTÜ personel adresiyle kayıt olur; deneyim ve kapasite aralıkta olmalı", () => {
     const mentor = {
       rol: "mentor",
       adSoyad: "Deniz Kaya",
-      eposta: "deniz@firma.com",
+      eposta: "deniz.kaya@kocaelisaglik.edu.tr",
       sifre: "guclu123",
       kvkk: true,
       unvan: "Yazılım Mühendisi",
@@ -53,6 +80,28 @@ describe("e-posta ve kayıt doğrulama", () => {
     expect(kayitSemasi.safeParse(mentor).success).toBe(true);
     expect(kayitSemasi.safeParse({ ...mentor, kapasite: 9 }).success).toBe(false);
     expect(kayitSemasi.safeParse({ ...mentor, deneyimYili: Number.NaN }).success).toBe(false);
+    expect(kayitSemasi.safeParse({ ...mentor, eposta: "deniz@firma.com" }).success).toBe(false);
+    expect(
+      kayitSemasi.safeParse({ ...mentor, eposta: "240502016@kocaelisaglik.edu.tr" }).success,
+    ).toBe(false);
+  });
+
+  test("sınıf, numaradaki giriş yılına göre imkânsızsa sınıf alanında hata verilir", () => {
+    const buYil = String(new Date().getFullYear() % 100).padStart(2, "0");
+    const sonuc = kayitSemasi.safeParse({
+      ...ogrenci,
+      eposta: `${buYil}0502001@kocaelisaglik.edu.tr`,
+      sinif: "4",
+    });
+    expect(sonuc.success).toBe(false);
+    expect(sonuc.error.issues[0].path).toEqual(["sinif"]);
+  });
+
+  test("giriş yalnız KOSTÜ adresiyle yapılır", () => {
+    const giris = (eposta) => girisSemasi.safeParse({ eposta, sifre: "x" }).success;
+    expect(giris("240502016@kocaelisaglik.edu.tr")).toBe(true);
+    expect(giris("ali.veli@kocaelisaglik.edu.tr")).toBe(true);
+    expect(giris("ali@gmail.com")).toBe(false);
   });
 
   test("proje formu: süre boş bırakılabilir, takım 2-10 kişi olmalı", () => {

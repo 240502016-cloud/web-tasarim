@@ -30,7 +30,7 @@ export async function mentorunProjeleri(id) {
   const satirlar = sonuc(
     await supabase
       .from("projects")
-      .select("id, title, status, team_size, project_members(count)")
+      .select("id, title, status, team_size, member_count")
       .eq("mentor_id", id)
       .in("status", ["open", "in_progress", "completed"])
       .order("created_at", { ascending: false }),
@@ -40,6 +40,6 @@ export async function mentorunProjeleri(id) {
     baslik: p.title,
     durum: p.status,
     takimBuyuklugu: p.team_size,
-    uyeSayisi: p.project_members[0]?.count ?? 0,
+    uyeSayisi: p.member_count ?? 0,
   }));
 }

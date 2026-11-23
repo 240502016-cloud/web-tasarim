@@ -14,12 +14,24 @@ let db, yonetici, lider, yabanci, mentor, projeId, mesajId;
 
 before(async () => {
   db = await veritabaniOlustur();
-  yonetici = await kullaniciEkle(db, "yonetici@x.edu.tr", ogrenciMeta("Platform Yöneticisi"));
+  yonetici = await kullaniciEkle(
+    db,
+    "240502100@kocaelisaglik.edu.tr",
+    ogrenciMeta("Platform Yöneticisi"),
+  );
   // İlk yönetici SQL editöründen atanır (auth.uid() boş => koruma tetikleyicisi engellemez)
   await db.query("update public.profiles set role = 'admin' where id = $1", [yonetici]);
-  lider = await kullaniciEkle(db, "lider@ogr.x.edu.tr", ogrenciMeta("Proje Lideri"));
-  yabanci = await kullaniciEkle(db, "yabanci@ogr.x.edu.tr", ogrenciMeta("Yabancı Öğrenci"));
-  mentor = await kullaniciEkle(db, "mentor@ornek.com", mentorMeta("Bekleyen Mentör"));
+  lider = await kullaniciEkle(db, "240502106@kocaelisaglik.edu.tr", ogrenciMeta("Proje Lideri"));
+  yabanci = await kullaniciEkle(
+    db,
+    "240502113@kocaelisaglik.edu.tr",
+    ogrenciMeta("Yabancı Öğrenci"),
+  );
+  mentor = await kullaniciEkle(
+    db,
+    "mentor.mentor@kocaelisaglik.edu.tr",
+    mentorMeta("Bekleyen Mentör"),
+  );
 
   const react = await beceriId(db, "React");
   projeId = (
@@ -130,7 +142,7 @@ test("yönetici fonksiyonlarını yalnızca yönetici çağırabilir", async () 
     /yalnızca yöneticiler/,
   );
   const k = await olarak(db, yonetici, "select email, role from public.admin_list_users()");
-  assert.ok(k.rows.some((r) => r.email === "mentor@ornek.com"));
+  assert.ok(k.rows.some((r) => r.email === "mentor.mentor@kocaelisaglik.edu.tr"));
   const s = (await olarak(db, yonetici, "select public.admin_stats() as s")).rows[0].s;
   assert.equal(s.mentors, 1);
   assert.equal(s.open_reports, 1);

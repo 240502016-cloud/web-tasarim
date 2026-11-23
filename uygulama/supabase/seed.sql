@@ -45,24 +45,24 @@ declare
   b record;
 begin
   -- ---------- Kullanıcılar ----------
-  yonetici := pg_temp.ornek_kullanici('yonetici@demo.edu.tr',
+  yonetici := pg_temp.ornek_kullanici('230502900@kocaelisaglik.edu.tr',
     '{"role": "student", "full_name": "Platform Yöneticisi", "department": "Diğer", "class_year": "4"}');
   update public.profiles set role = 'admin' where id = yonetici;
 
-  ayse := pg_temp.ornek_kullanici('ayse@ogr.demo.edu.tr',
+  ayse := pg_temp.ornek_kullanici('240502901@kocaelisaglik.edu.tr',
     '{"role": "student", "full_name": "Ayşe Yılmaz", "department": "Bilgisayar Mühendisliği", "class_year": "3"}');
-  mehmet := pg_temp.ornek_kullanici('mehmet@ogr.demo.edu.tr',
+  mehmet := pg_temp.ornek_kullanici('250502902@kocaelisaglik.edu.tr',
     '{"role": "student", "full_name": "Mehmet Kaya", "department": "Yazılım Mühendisliği", "class_year": "2"}');
-  zeynep := pg_temp.ornek_kullanici('zeynep@ogr.demo.edu.tr',
+  zeynep := pg_temp.ornek_kullanici('230502903@kocaelisaglik.edu.tr',
     '{"role": "student", "full_name": "Zeynep Demir", "department": "Bilgisayar Mühendisliği", "class_year": "4"}');
-  can := pg_temp.ornek_kullanici('can@ogr.demo.edu.tr',
+  can := pg_temp.ornek_kullanici('240503904@kocaelisaglik.edu.tr',
     '{"role": "student", "full_name": "Can Arslan", "department": "Yönetim Bilişim Sistemleri", "class_year": "3"}');
 
-  deniz := pg_temp.ornek_kullanici('deniz@demo-mentor.com',
+  deniz := pg_temp.ornek_kullanici('deniz.sahin@kocaelisaglik.edu.tr',
     '{"role": "mentor", "full_name": "Deniz Şahin", "title": "Kıdemli Yazılım Mühendisi", "expertise": "Web Geliştirme", "experience_years": 8, "mentor_capacity": 2}');
-  selin := pg_temp.ornek_kullanici('selin@demo-mentor.com',
+  selin := pg_temp.ornek_kullanici('selin.aydin@kocaelisaglik.edu.tr',
     '{"role": "mentor", "full_name": "Selin Aydın", "title": "Veri Bilimci", "expertise": "Veri Bilimi / Yapay Zeka", "experience_years": 5, "mentor_capacity": 2}');
-  bekleyen := pg_temp.ornek_kullanici('emre@demo-mentor.com',
+  bekleyen := pg_temp.ornek_kullanici('emre.celik@kocaelisaglik.edu.tr',
     '{"role": "mentor", "full_name": "Emre Çelik", "title": "Mobil Geliştirici", "expertise": "Mobil Geliştirme", "experience_years": 4, "mentor_capacity": 1}');
   update public.profiles set mentor_status = 'approved' where id in (deniz, selin);
 

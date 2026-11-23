@@ -26,11 +26,15 @@ const durumu = async (id) =>
 
 before(async () => {
   db = await veritabaniOlustur();
-  lider = await kullaniciEkle(db, "lider@ogr.x.edu.tr", ogrenciMeta("Proje Lideri"));
-  ali = await kullaniciEkle(db, "ali@ogr.x.edu.tr", ogrenciMeta("Ali Demir"));
-  veli = await kullaniciEkle(db, "veli@ogr.x.edu.tr", ogrenciMeta("Veli Şahin"));
-  can = await kullaniciEkle(db, "can@ogr.x.edu.tr", ogrenciMeta("Can Aydın"));
-  mentor = await kullaniciEkle(db, "mentor@ornek.com", mentorMeta("Deniz Mentör"));
+  lider = await kullaniciEkle(db, "240502106@kocaelisaglik.edu.tr", ogrenciMeta("Proje Lideri"));
+  ali = await kullaniciEkle(db, "240502107@kocaelisaglik.edu.tr", ogrenciMeta("Ali Demir"));
+  veli = await kullaniciEkle(db, "240502108@kocaelisaglik.edu.tr", ogrenciMeta("Veli Şahin"));
+  can = await kullaniciEkle(db, "240502109@kocaelisaglik.edu.tr", ogrenciMeta("Can Aydın"));
+  mentor = await kullaniciEkle(
+    db,
+    "mentor.mentor@kocaelisaglik.edu.tr",
+    mentorMeta("Deniz Mentör"),
+  );
   await mentoruOnayla(db, mentor);
 });
 

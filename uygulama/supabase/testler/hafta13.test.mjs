@@ -27,15 +27,23 @@ const bildirimler = async (kim) =>
 
 before(async () => {
   db = await veritabaniOlustur();
-  lider = await kullaniciEkle(db, "lider@ogr.x.edu.tr", ogrenciMeta("Proje Lideri"));
-  uye = await kullaniciEkle(db, "uye@ogr.x.edu.tr", ogrenciMeta("Takım Üyesi"));
-  yabanci = await kullaniciEkle(db, "yabanci@ogr.x.edu.tr", ogrenciMeta("Yabancı Öğrenci"));
+  lider = await kullaniciEkle(db, "240502106@kocaelisaglik.edu.tr", ogrenciMeta("Proje Lideri"));
+  uye = await kullaniciEkle(db, "240502112@kocaelisaglik.edu.tr", ogrenciMeta("Takım Üyesi"));
+  yabanci = await kullaniciEkle(
+    db,
+    "240502113@kocaelisaglik.edu.tr",
+    ogrenciMeta("Yabancı Öğrenci"),
+  );
   mentor = await kullaniciEkle(
     db,
-    "mentor@ornek.com",
+    "mentor.mentor@kocaelisaglik.edu.tr",
     mentorMeta("Deniz Mentör", { mentor_capacity: 1 }),
   );
-  mentor2 = await kullaniciEkle(db, "mentor2@ornek.com", mentorMeta("İkinci Mentör"));
+  mentor2 = await kullaniciEkle(
+    db,
+    "mentor2.mentor@kocaelisaglik.edu.tr",
+    mentorMeta("İkinci Mentör"),
+  );
   await mentoruOnayla(db, mentor);
   await mentoruOnayla(db, mentor2);
 
@@ -76,7 +84,11 @@ test("başvuru ve kabul bildirim oluşturur", async () => {
 
 test("yalnızca proje lideri mentörlük talebi gönderebilir; onaysız mentöre gönderilemez", async () => {
   await assert.rejects(talepGonder(projeId, mentor, uye), /row-level security/);
-  const onaysiz = await kullaniciEkle(db, "onaysiz@ornek.com", mentorMeta("Onaysız Mentör"));
+  const onaysiz = await kullaniciEkle(
+    db,
+    "onaysiz.mentor@kocaelisaglik.edu.tr",
+    mentorMeta("Onaysız Mentör"),
+  );
   await assert.rejects(talepGonder(projeId, onaysiz), /onaylı mentörlere/);
 });
 

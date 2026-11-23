@@ -4,12 +4,52 @@ import { z } from "zod";
 
 export const SIFRE_KURALI = /^(?=.*[A-Za-zÇĞİÖŞÜçğıöşü])(?=.*\d).{8,}$/;
 
-export function eduTrMi(eposta = "") {
-  return /@([a-z0-9-]+\.)+edu\.tr$/i.test(eposta.trim());
+// ---------- KOSTÜ e-posta kuralları (veritabanındaki kostu_eposta_dogrula ile aynı) ----------
+// Öğrenci: <9 haneli numara>@kocaelisaglik.edu.tr, numara = YY FF BB SSS
+// (giriş yılı, fakülte, bölüm, sıra). Mentör: KOSTÜ personel adresi (ad.soyad@...).
+export const KOSTU_UZANTISI = "@kocaelisaglik.edu.tr";
+
+export function kostuEpostasiMi(eposta = "") {
+  return /^[^@\s]+@kocaelisaglik\.edu\.tr$/i.test(eposta.trim());
+}
+
+export function ogrenciNumarasi(eposta = "") {
+  return /^(\d{9})@kocaelisaglik\.edu\.tr$/i.exec(eposta.trim())?.[1] ?? null;
+}
+
+// Eğitim yılı Eylül'de başlar: 2024 girişli öğrenci Eylül 2026'dan itibaren en fazla 3. sınıftır
+export function azamiSinif(numara, simdi = new Date()) {
+  const egitimYili = simdi.getMonth() >= 8 ? simdi.getFullYear() : simdi.getFullYear() - 1;
+  return Math.max(1, egitimYili - (2000 + Number(numara.slice(0, 2))) + 1);
+}
+
+// Öğrenci e-postası kurala uymuyorsa hata metni, uyuyorsa null döndürür
+export function ogrenciEpostasiHatasi(eposta = "", simdi = new Date()) {
+  if (!kostuEpostasiMi(eposta))
+    return `Yalnızca KOSTÜ e-posta adresi (${KOSTU_UZANTISI}) kabul edilir.`;
+  const no = ogrenciNumarasi(eposta);
+  if (!no)
+    return "E-posta 9 haneli öğrenci numaranla başlamalı (ör. 24xxxxxxx@kocaelisaglik.edu.tr).";
+  const yil = Number(no.slice(0, 2));
+  const buYil = simdi.getFullYear() % 100;
+  if (yil < 20 || yil > buYil)
+    return `Öğrenci numarasının ilk iki hanesi (giriş yılı) 20 ile ${buYil} arasında olmalı.`;
+  if (no.slice(2, 4) === "00" || no.slice(4, 6) === "00" || no.slice(6) === "000")
+    return "Bu numara geçerli bir KOSTÜ öğrenci numarası değil.";
+  return null;
+}
+
+export function personelEpostasiMi(eposta = "") {
+  return kostuEpostasiMi(eposta) && !/^\d+@/.test(eposta.trim());
 }
 
 export const girisSemasi = z.object({
-  eposta: z.email("Geçerli bir e-posta adresi girin."),
+  eposta: z
+    .email("Geçerli bir e-posta adresi girin.")
+    .refine(
+      kostuEpostasiMi,
+      `Yalnızca KOSTÜ e-posta adresiyle (${KOSTU_UZANTISI}) giriş yapılabilir.`,
+    ),
   sifre: z.string().min(1, "Şifrenizi girin."),
 });
 
@@ -31,20 +71,35 @@ const ortakAlanlar = {
 
 // Role göre iki ayrı şema: tüm alan hataları aynı anda gösterilebilsin
 export const kayitSemasi = z.discriminatedUnion("rol", [
-  z.object({
-    rol: z.literal("student"),
-    ...ortakAlanlar,
-    eposta: eposta.refine(
-      eduTrMi,
-      "Öğrenci kaydı için .edu.tr uzantılı üniversite e-postası gerekir.",
-    ),
-    bolum: z.string().min(1, "Bölüm seçin."),
-    sinif: z.string().min(1, "Sınıf seçin."),
-  }),
+  z
+    .object({
+      rol: z.literal("student"),
+      ...ortakAlanlar,
+      eposta: eposta.superRefine((deger, ctx) => {
+        const hata = ogrenciEpostasiHatasi(deger);
+        if (hata) ctx.addIssue({ code: "custom", message: hata });
+      }),
+      bolum: z.string().min(1, "Bölüm seçin."),
+      sinif: z.string().min(1, "Sınıf seçin."),
+    })
+    .superRefine((veri, ctx) => {
+      const no = ogrenciNumarasi(veri.eposta);
+      if (!no || ogrenciEpostasiHatasi(veri.eposta) || !veri.sinif) return;
+      const enFazla = azamiSinif(no);
+      if (Number(veri.sinif) > enFazla)
+        ctx.addIssue({
+          code: "custom",
+          path: ["sinif"],
+          message: `20${no.slice(0, 2)} girişli bir öğrenci en fazla ${enFazla}. sınıf olabilir.`,
+        });
+    }),
   z.object({
     rol: z.literal("mentor"),
     ...ortakAlanlar,
-    eposta,
+    eposta: eposta.refine(
+      personelEpostasiMi,
+      "Mentör kaydı için KOSTÜ personel e-postası gerekir (ör. ad.soyad@kocaelisaglik.edu.tr).",
+    ),
     unvan: z.string().trim().min(2, "Unvanınızı yazın."),
     uzmanlik: z.string().min(1, "Uzmanlık alanı seçin."),
     deneyimYili: aralik(1, 50),

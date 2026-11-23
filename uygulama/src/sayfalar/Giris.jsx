@@ -57,7 +57,12 @@ export default function Giris() {
         )}
 
         <form className="form" onSubmit={handleSubmit(gonder)} noValidate>
-          <FormAlani id="eposta" etiket="E-posta" hata={errors.eposta}>
+          <FormAlani
+            id="eposta"
+            etiket="KOSTÜ e-postası"
+            hata={errors.eposta}
+            ipucu="Öğrenciler: numara@kocaelisaglik.edu.tr · Personel: ad.soyad@kocaelisaglik.edu.tr"
+          >
             <input type="email" autoComplete="email" {...register("eposta")} />
           </FormAlani>
 

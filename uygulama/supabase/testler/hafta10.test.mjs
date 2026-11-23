@@ -15,21 +15,29 @@ let db, ogrenci, digerOgrenci, mentor, bekleyenMentor;
 
 before(async () => {
   db = await veritabaniOlustur();
-  ogrenci = await kullaniciEkle(db, "ayse@ogr.kocaelisaglik.edu.tr", ogrenciMeta("Ayşe Yılmaz"));
+  ogrenci = await kullaniciEkle(db, "240502101@kocaelisaglik.edu.tr", ogrenciMeta("Ayşe Yılmaz"));
   digerOgrenci = await kullaniciEkle(
     db,
-    "mehmet@ogr.kocaelisaglik.edu.tr",
+    "240502102@kocaelisaglik.edu.tr",
     ogrenciMeta("Mehmet Kaya"),
   );
-  mentor = await kullaniciEkle(db, "mentor@ornek.com", mentorMeta("Deniz Mentör"));
-  bekleyenMentor = await kullaniciEkle(db, "yeni@ornek.com", mentorMeta("Yeni Mentör"));
+  mentor = await kullaniciEkle(
+    db,
+    "mentor.mentor@kocaelisaglik.edu.tr",
+    mentorMeta("Deniz Mentör"),
+  );
+  bekleyenMentor = await kullaniciEkle(
+    db,
+    "yeni.mentor@kocaelisaglik.edu.tr",
+    mentorMeta("Yeni Mentör"),
+  );
   await mentoruOnayla(db, mentor);
 });
 
-test("öğrenci .edu.tr olmayan e-postayla kayıt olamaz", async () => {
+test("öğrenci KOSTÜ dışı e-postayla kayıt olamaz", async () => {
   await assert.rejects(
     kullaniciEkle(db, "ogrenci@gmail.com", ogrenciMeta("Gmail Öğrenci")),
-    /\.edu\.tr/,
+    /kocaelisaglik.edu.tr/,
   );
 });
 
@@ -47,7 +55,11 @@ test("kayıtta profil oluşur; mentör beklemede başlar", async () => {
 });
 
 test("kayıtta 'admin' rolü seçilemez", async () => {
-  const id = await kullaniciEkle(db, "sahte@ogr.x.edu.tr", ogrenciMeta("Sahte", { role: "admin" }));
+  const id = await kullaniciEkle(
+    db,
+    "240502103@kocaelisaglik.edu.tr",
+    ogrenciMeta("Sahte", { role: "admin" }),
+  );
   const { rows } = await db.query("select role from public.profiles where id = $1", [id]);
   assert.equal(rows[0].role, "student");
 });
@@ -144,7 +156,11 @@ test("proje sahibi mentörü kendisi atayamaz; başkası projeyi düzenleyemez",
 test("takım büyüklüğü üye sayısının altına indirilemez", async () => {
   // Proje 3 kişilik; lider + 2 üye ile takım dolu
   const { rows } = await db.query("select id from public.projects where owner_id = $1", [ogrenci]);
-  const ucuncu = await kullaniciEkle(db, "ucuncu@ogr.x.edu.tr", ogrenciMeta("Üçüncü Üye"));
+  const ucuncu = await kullaniciEkle(
+    db,
+    "240502104@kocaelisaglik.edu.tr",
+    ogrenciMeta("Üçüncü Üye"),
+  );
   await db.query(
     "insert into public.project_members (project_id, profile_id) values ($1, $2), ($1, $3)",
     [rows[0].id, digerOgrenci, ucuncu],
@@ -210,7 +226,11 @@ test("beceri listesini yalnızca yönetici değiştirebilir", async () => {
 });
 
 test("hesap silinince profil ve projeleri de silinir", async () => {
-  const id = await kullaniciEkle(db, "silinecek@ogr.x.edu.tr", ogrenciMeta("Silinecek Kişi"));
+  const id = await kullaniciEkle(
+    db,
+    "240502105@kocaelisaglik.edu.tr",
+    ogrenciMeta("Silinecek Kişi"),
+  );
   await olarak(
     db,
     id,

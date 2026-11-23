@@ -1,8 +1,10 @@
 import { supabase, sonuc } from "../lib/supabase";
 
-// Ziyaretçiler profil tablosunu okuyamadığı için sahip/mentör bilgisi onlara boş (null) gelir
+// Ziyaretçiler profil ve takım üyesi tablolarını okuyamaz: sahip/mentör null, üye listesi boş
+// gelir. Takım doluluğu için yalnızca sayı (member_count) herkese açıktır.
 export const LISTE_ALANLARI = `
   id, title, description, status, team_size, duration_weeks, created_at, owner_id, mentor_id,
+  member_count,
   owner:profiles!projects_owner_id_fkey(id, full_name, department),
   mentor:profiles!projects_mentor_id_fkey(id, full_name, title),
   project_skills(skills(id, name)),
@@ -44,7 +46,7 @@ export function projeyiDonustur(satir) {
       .map((ps) => ({ id: ps.skills.id, ad: ps.skills.name }))
       .sort((a, b) => a.ad.localeCompare(b.ad, "tr")),
     uyeler,
-    uyeSayisi: uyeler.length,
+    uyeSayisi: satir.member_count ?? uyeler.length,
   };
 }
 
